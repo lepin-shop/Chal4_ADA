@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		9508B4082FF63BB800180A71 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 9508B4072FF63BB200180A71 /* .gitignore */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		9508B3F92FF63B4E00180A71 /* Chal4_ADA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chal4_ADA.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9508B4072FF63BB200180A71 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -32,6 +37,7 @@
 		9508B3F02FF63B4E00180A71 = {
 			isa = PBXGroup;
 			children = (
+				9508B4072FF63BB200180A71 /* .gitignore */,
 				9508B3FB2FF63B4E00180A71 /* Chal4_ADA */,
 				9508B3FA2FF63B4E00180A71 /* Products */,
 			);
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9508B4082FF63BB800180A71 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

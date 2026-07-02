@@ -1,0 +1,17 @@
+//
+//  Chal4_ADAApp.swift
+//  Chal4_ADA
+//
+//  Created by Filipus Darren Siswanto on 02/07/26.
+//
+
+import SwiftUI
+
+@main
+struct Chal4_ADAApp: App {
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+        }
+    }
+}

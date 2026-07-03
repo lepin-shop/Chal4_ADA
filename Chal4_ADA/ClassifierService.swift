@@ -14,9 +14,9 @@ struct ClassificationResult {
 class ClassifierService {
 
     // Load model .mlmodel sekali saja saat ClassifierService dibuat.
-    // TODO: Ganti "FoodFreshnessClassifier" sesuai nama file .mlmodel yang kamu drag ke Xcode
+    // Nama class "Chal4_1Model" otomatis di-generate Xcode dari file Chal4_1Model.mlmodel
     private let model: VNCoreMLModel? = {
-        guard let mlModel = try? Chal4_1Model(configuration: MLModelConfiguration()).model,
+        guard let mlModel = try? Chal4_1model(configuration: MLModelConfiguration()).model,
               let vnModel = try? VNCoreMLModel(for: mlModel) else {
             return nil   // kalau model gagal di-load, nanti classify() akan return nil
         }

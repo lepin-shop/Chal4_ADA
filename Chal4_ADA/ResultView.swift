@@ -1,5 +1,6 @@
 import SwiftUI
 
+// Layar hasil klasifikasi: tampilkan foto, jalankan model, lalu tampilkan hasilnya
 struct ResultView: View {
     let image: UIImage
     @EnvironmentObject var historyStore: HistoryStore
@@ -11,6 +12,7 @@ struct ResultView: View {
 
     var body: some View {
         VStack(spacing: 20) {
+            // Preview foto yang baru difoto/dipilih
             Image(uiImage: image)
                 .resizable()
                 .scaledToFit()
@@ -19,8 +21,9 @@ struct ResultView: View {
                 .padding(.top)
 
             if isLoading {
-                ProgressView("Menganalisis...")
+                ProgressView("Menganalisis...")   // ditampilkan selagi model masih memproses
             } else if let result = result {
+                // Tampilan hasil: jenis buah, status fresh/rotten, dan confidence
                 VStack(spacing: 8) {
                     Text(result.foodType)
                         .font(.title2).bold()
@@ -38,6 +41,7 @@ struct ResultView: View {
                         .foregroundColor(.secondary)
                 }
             } else {
+                // Ditampilkan kalau model gagal load/klasifikasi
                 Text("Gagal menganalisis gambar. Pastikan model sudah ditambahkan ke project.")
                     .foregroundColor(.red)
                     .multilineTextAlignment(.center)
@@ -47,13 +51,14 @@ struct ResultView: View {
             Spacer()
 
             Button("Selesai") {
-                dismiss()
+                dismiss()   // balik ke Home Screen
             }
             .buttonStyle(.borderedProminent)
             .padding(.bottom)
         }
         .padding()
         .onAppear {
+            // Otomatis jalan begitu layar ini muncul: klasifikasi foto, lalu simpan ke riwayat
             classifier.classify(image: image) { classificationResult in
                 self.result = classificationResult
                 self.isLoading = false

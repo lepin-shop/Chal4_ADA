@@ -2,9 +2,11 @@ import SwiftUI
 import UIKit
 
 // SwiftUI tidak punya komponen kamera/galeri bawaan, jadi kita "bungkus" (wrap)
+
 // UIImagePickerController milik UIKit supaya bisa dipakai di dalam SwiftUI.
-// Satu struct ini dipakai untuk DUA keperluan: buka kamera ATAU buka galeri,
-// tergantung nilai "sourceType" yang dikirim dari pemanggilnya.
+
+// Satu struct ini dipakai untuk DUA keperluan: buka kamera ATAU buka galeri, tergantung nilai "sourceType" yang dikirim dari pemanggilnya.
+
 struct ImagePicker: UIViewControllerRepresentable {
     let sourceType: UIImagePickerController.SourceType   // .camera atau .photoLibrary
     let onImagePicked: (UIImage) -> Void                 // dipanggil setelah user selesai memilih/memotret foto

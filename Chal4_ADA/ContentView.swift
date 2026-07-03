@@ -1,5 +1,6 @@
 import SwiftUI
 
+// Home Screen: tombol ambil foto/galeri + daftar riwayat pengecekan
 struct ContentView: View {
     @EnvironmentObject var historyStore: HistoryStore
 
@@ -15,6 +16,7 @@ struct ContentView: View {
                     .font(.title2).bold()
                     .padding(.top)
 
+                // Dua tombol utama untuk mendapatkan foto
                 HStack(spacing: 16) {
                     Button {
                         showCamera = true
@@ -43,6 +45,7 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal)
 
+                // List riwayat, kosong kalau belum pernah cek foto sama sekali
                 if historyStore.entries.isEmpty {
                     Spacer()
                     Text("Belum ada riwayat pengecekan")
@@ -73,6 +76,7 @@ struct ContentView: View {
                     .listStyle(.plain)
                 }
             }
+            // Sheet kamera dan galeri, keduanya pakai ImagePicker yang sama
             .sheet(isPresented: $showCamera) {
                 ImagePicker(sourceType: .camera) { image in
                     capturedImage = image
@@ -85,6 +89,7 @@ struct ContentView: View {
                     showResult = true
                 }
             }
+            // Pindah ke ResultView otomatis setelah foto didapat
             .navigationDestination(isPresented: $showResult) {
                 if let image = capturedImage {
                     ResultView(image: image)

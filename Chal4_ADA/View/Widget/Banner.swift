@@ -60,11 +60,10 @@ struct Banner: View {
         .background(
             ZStack {
                 LinearGradient(
-                    colors: [Color(hex: "#52865D"),
-                             Color(hex: "#66A874").opacity(0.6)],
+                    colors: [.accent1, .bannerGreenEnd],
                     startPoint: .leading,
                     endPoint: .trailing
-                )
+                )       
                 HStack {
                     VStack (spacing: 0) {
                         Spacer()

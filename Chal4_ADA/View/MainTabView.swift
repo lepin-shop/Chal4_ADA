@@ -11,20 +11,16 @@ import SwiftUI
 struct MainTabView: View {
     var body: some View {
         TabView {
-            Text("Your Shop")
-                .tabItem {
-                    Label("Your Shop", systemImage: "basket")
-                }
-            ConnectionView()
-                .tabItem {
-                    Label("Your Need", systemImage: "person.3.fill")
-                }
-            Text("Profile")
-                .tabItem {
-                    Label("Profile", systemImage: "person")
-                }
-        }
-        .tint(.green)
+            Tab ("Your Shop", systemImage: "storefront.fill") {
+                YourShop()
+            }
+            Tab ("Connection", systemImage: "person.3.fill") {
+                ConnectionView()
+            }
+            Tab ("Profile", systemImage: "person.fill") {
+                
+            }
+        }.tint(.accents)
     }
 }
 

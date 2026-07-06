@@ -9,19 +9,35 @@ import SwiftUI
 
 struct YourShop: View {
     var body: some View {
-        VStack (alignment: .leading, spacing: 0) {
-            Banner()
-            .padding(.bottom, 24)
-           
-            YourPostsSection()
-            Spacer()
+        NavigationStack {
+            ScrollView {
+                VStack (alignment: .leading, spacing: 0) {
+                    Banner()
+                    .padding(.bottom, 24)
+                   
+                    YourPostsSection()
+                    Spacer()
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 28)
+                .navigationTitle("Activities")
+                    .toolbarTitleDisplayMode(.inlineLarge)
+                    .toolbar {
+                        ToolbarItem {
+                            Button("Account", systemImage: "bell", action: {}
+                                   
+                            )
+                            .badge(3)
+                            .tint(.black)
+                        }
+                    }
+            }
+            .background(Color.background)
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 28)
     }
 }
 
 #Preview {
-    RouterPage()
+    MainTabView()
 }
 

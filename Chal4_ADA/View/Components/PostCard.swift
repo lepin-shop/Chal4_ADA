@@ -26,7 +26,7 @@ struct PostCard: View {
                     Text(grade)
                         .font(.caption2)
                         .fontWeight(.bold)
-                        .foregroundStyle(.accent)
+                        .foregroundStyle(.accents)
                     Text(title)
                         .font(.title3)
                         .fontWeight(.bold)
@@ -45,7 +45,7 @@ struct PostCard: View {
                         .foregroundStyle(.white)
                         .padding(.horizontal, 20)
                         .padding(.vertical, 14)
-                        .background(Color.accent, in: Capsule())
+                        .background(Color.accents, in: Capsule())
                 }
             }
             .padding()

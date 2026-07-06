@@ -74,3 +74,8 @@ final class Item {
         }
     }
 }
+
+enum PostFilter: String, CaseIterable, Identifiable {
+    case active = "Active", booked = "Booked", done = "Done"
+    var id: Self { self }
+}

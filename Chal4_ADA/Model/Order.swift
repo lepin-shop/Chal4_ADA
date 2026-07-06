@@ -19,7 +19,8 @@ final class Order {
     var buyer: User
     var quantityOrdered: Int
     var status: OrderStatus
-    var totalPrice: Decimal
+    var totalPrice: Double
+    var location: String
     var createdAt: Date
 
     init(
@@ -28,7 +29,8 @@ final class Order {
         buyer: User,
         quantityOrdered: Int,
         status: OrderStatus,
-        totalPrice: Decimal,
+        totalPrice: Double,
+        location: String,
         createdAt: Date = Date()
     ) {
         self.id = id
@@ -37,6 +39,7 @@ final class Order {
         self.quantityOrdered = quantityOrdered
         self.status = status
         self.totalPrice = totalPrice
+        self.location = location
         self.createdAt = createdAt
 
         // Auto-wire kedua sisi-balik.

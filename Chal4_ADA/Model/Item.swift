@@ -15,8 +15,9 @@ enum ItemStatus {
 }
 
 enum QualityGrade {
-    case fresh
-    case molded
+    case A
+    case B
+    case C
 }
 
 final class Item {
@@ -28,7 +29,7 @@ final class Item {
     var qualityGrade: QualityGrade
     var quantity: Int
     var quantityAvailable: Int
-    var pricePerUnit: Decimal
+    var pricePerUnit: Double
     var expiresAt: Date
     var status: ItemStatus
     var createdAt: Date
@@ -45,7 +46,7 @@ final class Item {
         qualityGrade: QualityGrade,
         quantity: Int,
         quantityAvailable: Int,
-        pricePerUnit: Decimal,
+        pricePerUnit: Double,
         expiresAt: Date,
         status: ItemStatus,
         createdAt: Date = Date()

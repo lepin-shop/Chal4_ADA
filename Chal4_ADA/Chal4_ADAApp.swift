@@ -11,7 +11,7 @@ import SwiftUI
 struct Chal4_ADAApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainTabView()
         }
     }
 }

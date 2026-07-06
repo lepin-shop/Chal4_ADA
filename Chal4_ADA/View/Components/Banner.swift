@@ -81,5 +81,5 @@ struct Banner: View {
 }
 
 #Preview {
-    RouterPage()
+    MainTabView()
 }

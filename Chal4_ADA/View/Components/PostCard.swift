@@ -56,5 +56,5 @@ struct PostCard: View {
 }
 
 #Preview {
-    RouterPage()
+    MainTabView()
 }

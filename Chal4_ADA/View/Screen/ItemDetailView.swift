@@ -14,6 +14,7 @@ struct ItemDetailView: View {
     
     var primaryButtonText: String = "Lanjut Pembelian"
     var buttonTextColor: Color = .white
+    var isCheckoutMode: Bool = true
     var buttonBackgroundColor: Color = Color.green.opacity(0.85)
     var onPrimaryAction: ((Int, Double)) -> Void = { _ in }
     
@@ -139,52 +140,54 @@ struct ItemDetailView: View {
         .safeAreaInset(edge: .bottom) {
             
             VStack(spacing: 16) {
-                HStack(alignment: .bottom) {
-                    // Total Price
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Total Bayar:")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                        Text(formattedPrice(totalBayar))
-                            .font(.title3.weight(.bold))
-                            .foregroundStyle(Color.red)
-                    }
-                    
-                    Spacer()
-                    
-                    // Custom Stepper
-                    VStack(alignment: .trailing, spacing: 8) {
-                        Text("Jumlah: \(quantity)")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-                        
-                        HStack(spacing: 16) {
-                            Button(action: {
-                                if quantity > 1 { quantity -= 1 }
-                            }) {
-                                Image(systemName: "minus")
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundStyle(.primary)
-                            }
-                            
-                            Divider().frame(height: 20)
-                            
-                            Button(action: {
-                                if quantity < item.quantity { quantity += 1 }
-                            }) {
-                                Image(systemName: "plus")
-                                    .font(.system(size: 16, weight: .bold))
-                                    .foregroundStyle(.primary)
-                            }
+                if isCheckoutMode {
+                    HStack(alignment: .bottom) {
+                        // Total Price
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Total Bayar:")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                            Text(formattedPrice(totalBayar))
+                                .font(.title3.weight(.bold))
+                                .foregroundStyle(Color.red)
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.vertical, 8)
-                        .background(Color(.systemGray6))
-                        .clipShape(Capsule())
+                        
+                        Spacer()
+                        
+                        // Custom Stepper
+                        VStack(alignment: .trailing, spacing: 8) {
+                            Text("Jumlah: \(quantity)")
+                                .font(.subheadline)
+                                .foregroundStyle(.secondary)
+                            
+                            HStack(spacing: 16) {
+                                Button(action: {
+                                    if quantity > 1 { quantity -= 1 }
+                                }) {
+                                    Image(systemName: "minus")
+                                        .font(.system(size: 16, weight: .bold))
+                                        .foregroundStyle(.primary)
+                                }
+                                
+                                Divider().frame(height: 20)
+                                
+                                Button(action: {
+                                    if quantity < item.quantity { quantity += 1 }
+                                }) {
+                                    Image(systemName: "plus")
+                                        .font(.system(size: 16, weight: .bold))
+                                        .foregroundStyle(.primary)
+                                }
+                            }
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .background(Color(.systemGray6))
+                            .clipShape(Capsule())
+                        }
                     }
                 }
                 
-                // Action Button
+                // Action Button (Always shows)
                 Button(action: {
                     onPrimaryAction((quantity, totalBayar))
                 }) {
@@ -198,12 +201,16 @@ struct ItemDetailView: View {
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.top, 16)
+            .padding(.top, isCheckoutMode ? 16 : 24)
             .padding(.bottom, 8)
             .background(
-                Color(.systemBackground)
-                    .shadow(color: .black.opacity(0.05), radius: 10, x: 0, y: -5)
-                    .ignoresSafeArea(edges: .bottom)
+                Group {
+                    if isCheckoutMode {
+                        Color(.systemBackground)
+                            .shadow(color: .black.opacity(0.05), radius: 10, x: 0, y: -5)
+                            .ignoresSafeArea(edges: .bottom)
+                    }
+                }
             )
         }
         .background(Color(.systemGroupedBackground))

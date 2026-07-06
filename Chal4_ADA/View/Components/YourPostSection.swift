@@ -57,5 +57,5 @@ struct SegmentedFilter: View {
 }
 
 #Preview {
-    RouterPage()
+    MainTabView()
 }

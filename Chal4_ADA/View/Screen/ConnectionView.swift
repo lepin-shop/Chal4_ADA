@@ -72,7 +72,16 @@ struct ConnectionView: View {
                 .background(Color(.systemGroupedBackground))
             }
             .navigationTitle("Connections")
-            .navigationBarTitleDisplayMode(.large)
+            .toolbarTitleDisplayMode(.inlineLarge)
+            .toolbar {
+                ToolbarItem {
+                    Button("Account", systemImage: "bell", action: {}
+                           
+                    )
+                    .badge(3)
+                    .tint(.black)
+                }
+            }
         }
     }
     
@@ -97,6 +106,7 @@ struct ConnectionView: View {
                     item: order.item,
                     primaryButtonText: "Batalkan pemesanan",
                     buttonTextColor: Color.red,
+                    isCheckoutMode: false,
                     buttonBackgroundColor: Color(.systemGray5),
                     onPrimaryAction: { quantity, total in
                         print("Order cancelled!")

@@ -6,25 +6,27 @@
 //
 
 import Foundation
+import SwiftData
 
 /// Status penjualan sebuah Item.
-enum ItemStatus {
+enum ItemStatus: String, Codable {
     case onSale
     case soldOut
     case expired
 }
 
-enum QualityGrade {
+enum QualityGrade: String, Codable {
     case A
     case B
     case C
 }
 
+@Model
 final class Item {
-    let id: UUID
+    @Attribute(.unique) var id: UUID
     var seller: User
     var title: String
-    var description: String
+    var itemDescription: String
     var mediaUrl: String
     var qualityGrade: QualityGrade
     var quantity: Int
@@ -33,9 +35,14 @@ final class Item {
     var expiresAt: Date
     var status: ItemStatus
     var createdAt: Date
-    var tagsVisibility: [Tag] = []
-
+    
+    
+    @Relationship(deleteRule: .cascade, inverse: \Order.item)
     var orders: [Order] = []   // order yang menargetkan item ini
+    
+    // one-to-many one item could be scoped to several tags
+    @Relationship(inverse: \Tag.visibleItems)
+    var tagsVisibility: [Tag] = []
 
     init(
         id: UUID = UUID(),
@@ -54,7 +61,7 @@ final class Item {
         self.id = id
         self.seller = seller
         self.title = title
-        self.description = description
+        self.itemDescription = description
         self.mediaUrl = mediaUrl
         self.qualityGrade = qualityGrade
         self.quantity = quantity
@@ -65,7 +72,7 @@ final class Item {
         self.createdAt = createdAt
 
         // Auto-wire sisi-balik agar graf selalu konsisten.
-        seller.items.append(self)
+        // seller.items.append(self)
     }
     
     func add_tag (_ tag: Tag) {

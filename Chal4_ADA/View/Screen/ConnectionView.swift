@@ -15,10 +15,10 @@ enum PageSegment: String, CaseIterable {
     
 }
 
-extension Item: Hashable {
-    static func == (lhs: Item, rhs: Item) -> Bool { lhs.id == rhs.id }
-    func hash(into hasher: inout Hasher) { hasher.combine(id) }
-}
+//extension Item: Hashable {
+//    static func == (lhs: Item, rhs: Item) -> Bool { lhs.id == rhs.id }
+//    func hash(into hasher: inout Hasher) { hasher.combine(id) }
+//}
 
 struct ConnectionView: View {
     @State private var selectedSegment: PageSegment = .all

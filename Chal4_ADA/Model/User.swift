@@ -5,9 +5,11 @@
 //  Created by Danniel on 02/07/26.
 //
 import Foundation
+import SwiftData
 
+@Model
 final class User {
-    let id: UUID
+    @Attribute(.unique) var id: UUID
     var name: String
     var phone: String
     var location: String
@@ -16,12 +18,15 @@ final class User {
     /// Relasi to-many. Default kosong: inilah yang memutus circular-init,
     /// sehingga tidak perlu optional di mana pun.
     /// item yang dijual user ini (sebagai seller)
+    @Relationship(deleteRule: .cascade, inverse: \Item.seller)
     var items: [Item] = []
 
     /// order yang dibuat user ini (sebagai buyer)
+    @Relationship(deleteRule: .cascade, inverse: \Order.buyer)
     var orders: [Order] = []
 
     /// tag yang dimiliki user ini
+    @Relationship(deleteRule: .cascade, inverse: \Tag.owner)
     var ownedTags: [Tag] = []
 
     // Relasi user-ke-user (model follow terarah, mirip Instagram).

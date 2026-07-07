@@ -5,16 +5,18 @@
 //  Created by Danniel on 02/07/26.
 //
 import Foundation
+import SwiftData
 
 /// Status siklus hidup sebuah Order.
-enum OrderStatus {
+enum OrderStatus: String, Codable{
     case inProgress
     case done
     case canceled
 }
 
+@Model
 final class Order {
-    let id: UUID
+    @Attribute(.unique) var id: UUID
     var item: Item
     var buyer: User
     var quantityOrdered: Int
@@ -43,8 +45,8 @@ final class Order {
         self.createdAt = createdAt
 
         // Auto-wire kedua sisi-balik.
-        item.orders.append(self)
-        buyer.orders.append(self)
+        // item.orders.append(self)
+        // buyer.orders.append(self)
     }
 }
 

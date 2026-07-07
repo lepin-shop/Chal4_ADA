@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct Chal4_ADAApp: App {
@@ -13,5 +14,6 @@ struct Chal4_ADAApp: App {
         WindowGroup {
             MainTabView()
         }
+        .modelContainer(for: [User.self, Item.self, Tag.self, Order.self])
     }
 }

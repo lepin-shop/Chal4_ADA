@@ -53,7 +53,6 @@ struct ItemDetailView: View {
                 .padding(.horizontal, 16)
                 .padding(.top, 16)
                 
-                // 3. Pickup Time
                 HStack(spacing: 8) {
                     Image(systemName: "clock.fill")
                     Text("Ambil Sebelum: \(ItemDetailView.formatExpiry(item.expiresAt))")
@@ -116,7 +115,7 @@ struct ItemDetailView: View {
                         .font(.headline)
                     
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(item.description)
+                        Text(item.itemDescription)
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                             .lineSpacing(4)
@@ -166,7 +165,7 @@ struct ItemDetailView: View {
                                 }) {
                                     Image(systemName: "minus")
                                         .font(.system(size: 16, weight: .bold))
-                                        .foregroundStyle(.primary)
+                                        .foregroundStyle(.gray)
                                 }
                                 
                                 Divider().frame(height: 20)
@@ -176,7 +175,7 @@ struct ItemDetailView: View {
                                 }) {
                                     Image(systemName: "plus")
                                         .font(.system(size: 16, weight: .bold))
-                                        .foregroundStyle(.primary)
+                                        .foregroundStyle(.gray)
                                 }
                             }
                             .padding(.horizontal, 16)

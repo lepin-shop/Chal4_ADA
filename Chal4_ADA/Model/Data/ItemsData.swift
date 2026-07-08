@@ -113,11 +113,72 @@ enum ItemsData {
     // andi membeli apel dari budi (done)
     static let orderApelAndi = Order(
         item: apelFuji,
-        buyer: andi,
+        buyer: siti,
         quantityOrdered: 3,
         status: .done,
         totalPrice: 75_000,
         location: "Pasar Modern, BSD South Tangerang",
+    )
+    
+    static let orderTelurBudi = Order(
+        item: telurKampung,
+        buyer: budi,
+        quantityOrdered: 2,
+        status: .inProgress,
+        totalPrice: 70_000,
+        location: "Kelapa Gading, Jakarta Utara"
+    )
+
+    // siti membeli apel dari budi (inProgress)
+    static let orderApelSiti = Order(
+        item: apelFuji,
+        buyer: siti,
+        quantityOrdered: 4,
+        status: .inProgress,
+        totalPrice: 100_000,
+        location: "Margonda, Depok"
+    )
+
+    // budi membeli tomat dari siti (done)
+    static let orderTomatBudi = Order(
+        item: tomat,
+        buyer: budi,
+        quantityOrdered: 5,
+        status: .done,
+        totalPrice: 60_000,
+        location: "Cibubur, Jakarta Timur"
+    )
+
+    // siti membeli beras dari budi (done)
+    static let orderBerasDoneSiti = Order(
+        item: berasPremium,
+        buyer: siti,
+        quantityOrdered: 10,
+        status: .done,
+        totalPrice: 150_000,
+        location: "Sawangan, Depok"
+    )
+
+    // budi membeli apel dari siti (canceled)
+    static let orderCanceledBudi = Order(
+        item: apelFuji,
+        buyer: budi,
+        quantityOrdered: 2,
+        status: .done,
+        totalPrice: 50_000,
+        location: "Serpong, Tangerang Selatan"
+    )
+
+    // siti membeli telur dari siti (canceled)
+    // (Useful only if your app allows self-ordering for testing.
+    // Otherwise, change the buyer to another user.)
+    static let orderCanceledSiti = Order(
+        item: telurKampung,
+        buyer: siti,
+        quantityOrdered: 1,
+        status: .done,
+        totalPrice: 35_000,
+        location: "Cinere, Depok"
     )
 
     // MARK: Convenience collections
@@ -131,13 +192,13 @@ enum ItemsData {
     
     static let activeOrders: [Order] = {
         setup()
-        return [orderBerasSiti]
+        return [orderBerasSiti, orderTelurBudi, orderApelSiti]
             .filter { $0.status == .inProgress }
     }()
 
     static let completedOrders: [Order] = {
         setup()
-        return [orderApelAndi]
+        return [orderApelAndi, orderTomatBudi, orderBerasDoneSiti, orderCanceledBudi, orderCanceledSiti, orderCanceledBudi]
             .filter { $0.status == .done }
     }()
 

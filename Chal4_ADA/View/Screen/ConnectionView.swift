@@ -15,17 +15,30 @@ enum PageSegment: String, CaseIterable {
     
 }
 
-//extension Item: Hashable {
-//    static func == (lhs: Item, rhs: Item) -> Bool { lhs.id == rhs.id }
-//    func hash(into hasher: inout Hasher) { hasher.combine(id) }
-//}
-
 struct ConnectionView: View {
+    @Environment(SessionManager.self) private var session
     @State private var selectedSegment: PageSegment = .all
     @State private var selectedItem: Item? = nil
     
+    // taro ViewModel
     private let items = ItemsData.activeItems
     private let orders = ItemsData.activeOrders
+    private let completeOrders = ItemsData.completedOrders
+    
+    private var browsableItems: [Item] {
+        guard let currentUserID = session.activeUserID else { return items }
+        return items.filter { $0.seller.id.uuidString != currentUserID }
+    }
+    
+    private var myOrders: [Order] {
+        guard let currentUserID = session.activeUserID else { return [] }
+        return orders.filter { $0.buyer.id.uuidString == currentUserID }
+    }
+    private var completedOrders: [Order] {
+        guard let currentUserID = session.activeUserID else { return [] }
+        return completeOrders.filter { $0.buyer.id.uuidString == currentUserID }
+    }
+    // taro viewModel
     
     var body: some View {
         NavigationStack {
@@ -86,62 +99,108 @@ struct ConnectionView: View {
     }
     
     private var allSegmentView: some View {
-        ForEach(items, id: \.id) { item in
-            ItemCard(
-                item: item,
-                    buttonText: "Order",
-                    buttonColor: .blue,
-                    grade: String(describing: item.qualityGrade),
-                    quantity: item.quantity,
-                price: NSDecimalNumber(decimal: Decimal(item.pricePerUnit)).doubleValue
-            ) {
-                selectedItem = item
+        Group {
+            if browsableItems.isEmpty {
+                EmptyState(
+                    icon: "basket",
+                    message: "Belum ada barang yang tersedia."
+                )
+            } else {
+                ForEach(browsableItems, id: \.id) { item in
+                    ItemCard(
+                        item: item,
+                        buttonText: "Order",
+                        buttonColor: .blue,
+                        grade: String(describing: item.qualityGrade),
+                        quantity: item.quantity,
+                        price: NSDecimalNumber(decimal: Decimal(item.pricePerUnit)).doubleValue
+                    ) {
+                        selectedItem = item
+                    }
+                }
             }
         }
     }
     
     private var myOrderSegmentView: some View {
-        ForEach(orders, id: \.id) { order in
-                NavigationLink(destination: ItemDetailView(
-                    item: order.item,
-                    primaryButtonText: "Batalkan pemesanan",
-                    buttonTextColor: Color.red,
-                    isCheckoutMode: false,
-                    buttonBackgroundColor: Color(.systemGray5),
-                    onPrimaryAction: { quantity, total in
-                        print("Order cancelled!")
-                        // future logic button
-                    }
-                )) {
-                    ItemCard(
+        Group {
+            if myOrders.isEmpty {
+                EmptyState(
+                    icon: "doc.text.magnifyingglass",
+                    message: "Kamu belum memiliki pesanan aktif."
+                )
+            } else {
+                ForEach(myOrders, id: \.id) { order in
+                    NavigationLink(destination: ItemDetailView(
                         item: order.item,
-                        buttonText: "Detail",
-                        buttonColor: Color.green,
-                        grade: String(describing: order.item.qualityGrade),
-                        quantity: order.item.quantity,
-                        price: NSDecimalNumber(decimal: Decimal(order.item.pricePerUnit)).doubleValue
-                    ) {
-                        selectedItem = order.item
+                        primaryButtonText: "Batalkan pemesanan",
+                        buttonTextColor: Color.red,
+                        isCheckoutMode: false,
+                        buttonBackgroundColor: Color(.systemGray5),
+                        onPrimaryAction: { quantity, total in
+                            print("Order cancelled!")
+                            // future logic button
+                        }
+                    )) {
+                        ItemCard(
+                            item: order.item,
+                            buttonText: "Detail",
+                            buttonColor: Color.green,
+                            grade: String(describing: order.item.qualityGrade),
+                            quantity: order.item.quantity,
+                            price: NSDecimalNumber(decimal: Decimal(order.item.pricePerUnit)).doubleValue
+                        ) {
+                            selectedItem = order.item
+                        }
                     }
+                    .buttonStyle(.plain)
                 }
-                .buttonStyle(.plain)
             }
+        }
     }
     
     private var doneSegmentView: some View {
-        VStack(spacing: 12) {
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 40))
-                .foregroundStyle(.green)
-            Text("No completed orders yet.")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+        Group {
+            // Assuming you have a completedOrders array in your real data
+            if completedOrders.isEmpty {
+                EmptyState(
+                    icon: "checkmark.circle.fill",
+                    message: "Belum ada pesanan yang selesai.",
+                    iconColor: .green // Custom green color for the "Done" state
+                )
+            } else {
+                ForEach(completedOrders, id: \.id) { order in
+                    NavigationLink(destination: ItemDetailView(
+                        item: order.item,
+                        primaryButtonText: "Batalkan pemesanan",
+                        buttonTextColor: Color.red,
+                        isCheckoutMode: false,
+                        buttonBackgroundColor: Color(.systemGray5),
+                        onPrimaryAction: { quantity, total in
+                            print("Order cancelled!")
+                            // future logic button
+                        }
+                    )) {
+                        ItemCard(
+                            item: order.item,
+                            buttonText: "Detail",
+                            buttonColor: Color.green,
+                            grade: String(describing: order.item.qualityGrade),
+                            quantity: order.item.quantity,
+                            price: NSDecimalNumber(decimal: Decimal(order.item.pricePerUnit)).doubleValue
+                        ) {
+                            selectedItem = order.item
+                        }
+                    }
+                    .buttonStyle(.plain)
+                }
+            }
         }
-        .padding(.top, 40)
     }
     
 }
 
 #Preview {
     ConnectionView()
+        .environment(SessionManager())
 }

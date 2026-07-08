@@ -18,7 +18,7 @@ struct MainTabView: View {
                 ConnectionView()
             }
             Tab ("Profile", systemImage: "person.fill") {
-                
+                ProfiileView()
             }
         }.tint(.accents)
     }
@@ -26,4 +26,5 @@ struct MainTabView: View {
 
 #Preview {
     MainTabView()
+        .environment(SessionManager())
 }

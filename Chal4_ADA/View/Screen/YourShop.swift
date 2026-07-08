@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct YourShop: View {
+    @Environment(SessionManager.self) private var session
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -39,5 +40,6 @@ struct YourShop: View {
 
 #Preview {
     MainTabView()
+        .environment(SessionManager())
 }
 

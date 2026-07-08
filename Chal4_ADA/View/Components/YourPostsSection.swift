@@ -15,7 +15,8 @@ struct YourPostsSection: View {
             Text("Your posts")
                 .font(.title.bold())
             
-            SegmentedFilter(currentPostFilter: $currentPostFilter)
+            StatusPostSegmentedFilter(currentPostFilter: $currentPostFilter)
+            
             Group {
                 switch currentPostFilter {
                 case .active:
@@ -37,21 +38,6 @@ struct YourPostsSection: View {
                     }
                 }
             }
-        }
-    }
-}
-
-struct SegmentedFilter: View {
-    @Binding var currentPostFilter: PostFilter
-    
-    var body: some View {
-        VStack {
-            Picker("Your Posts Filter", selection: $currentPostFilter) {
-                Text("Active").tag(PostFilter.active)
-                Text("Booked").tag(PostFilter.booked)
-                Text("Done").tag(PostFilter.done)
-            }
-            .pickerStyle(.segmented)
         }
     }
 }

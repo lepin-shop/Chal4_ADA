@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct LoadOrange: View {
+struct LoadOrangeWidget: View {
     
     let orangeFrames: [Image] = [
         Image(.orangeLoad0),
@@ -42,5 +42,5 @@ struct LoadOrange: View {
 }
 
 #Preview {
-    LoadOrange()
+    LoadOrangeWidget()
 }

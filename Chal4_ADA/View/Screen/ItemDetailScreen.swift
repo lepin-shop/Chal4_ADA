@@ -1,5 +1,5 @@
 //
-//  ItemDetailView.swift
+//  ItemDetailScreen.swift
 //  Chal4_ADA
 //
 //  Created by Olifian Lepin on 03/07/26.
@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 
-struct ItemDetailView: View {
+struct ItemDetailScreen: View {
     let item: Item
     
     var primaryButtonText: String = "Lanjut Pembelian"
@@ -55,7 +55,7 @@ struct ItemDetailView: View {
                 
                 HStack(spacing: 8) {
                     Image(systemName: "clock.fill")
-                    Text("Ambil Sebelum: \(ItemDetailView.formatExpiry(item.expiresAt))")
+                    Text("Ambil Sebelum: \(ItemDetailScreen.formatExpiry(item.expiresAt))")
                 }
                 .font(.subheadline.weight(.medium))
                 .foregroundStyle(Color.orange)
@@ -238,7 +238,7 @@ struct ItemDetailView: View {
     NavigationStack {
         let sampleItem = ItemsData.activeItems[0]
         
-        ItemDetailView(
+        ItemDetailScreen(
             item: sampleItem,
             primaryButtonText: "Lanjut Pembelian",
             onPrimaryAction: { quantity, total in

@@ -9,7 +9,13 @@ import SwiftUI
 
 
 // TODO: Buat ini jadi reusable di Page Profile
-struct Banner: View {
+struct BannerCard: View {
+    var actionCallBack: (() -> Void)
+    
+    init (actionCallBack: @escaping (() -> Void) = {}) {
+        self.actionCallBack = actionCallBack
+    }
+    
     var body: some View {
         HStack(spacing: 0) {
             Spacer()
@@ -43,7 +49,9 @@ struct Banner: View {
                     .multilineTextAlignment(.trailing)
                     .padding(.bottom, 20)
                 
-                Button { } label: {
+                Button {
+                    actionCallBack()
+                } label: {
                     Label("Posting", systemImage: "plus")
                         .font(.title3)
                         .foregroundStyle(.black)

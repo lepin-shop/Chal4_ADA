@@ -13,7 +13,7 @@ struct YourShop: View {
         NavigationStack {
             ScrollView {
                 VStack (alignment: .leading, spacing: 0) {
-                    Banner()
+                    BannerCard()
                     .padding(.bottom, 24)
                    
                     YourPostsSection()

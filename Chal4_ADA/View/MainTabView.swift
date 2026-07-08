@@ -11,14 +11,22 @@ import SwiftUI
 struct MainTabView: View {
     var body: some View {
         TabView {
-            Tab ("Your Shop", systemImage: "storefront.fill") {
-                YourShop()
+            Tab ("Eksplor", systemImage: "storefront.fill") {
+                YourShopScreen()
+                    .tint(.black)
             }
-            Tab ("Connection", systemImage: "person.3.fill") {
-                ConnectionView()
+            Tab ("Jual", systemImage: "creditcard.arrow.trianglehead.2.clockwise.rotate.90") {
+                SellerScreen()
+                    .tint(.black)
             }
-            Tab ("Profile", systemImage: "person.fill") {
+
+            Tab ("Beli", systemImage: "basket") {
+                BuyerScreen()
+                    .tint(.black)
+            }
+            Tab("Mitra", systemImage: "person.line.dotted.person.fill") {
                 ProfiileView()
+                    .tint(.black)
             }
         }.tint(.accents)
     }

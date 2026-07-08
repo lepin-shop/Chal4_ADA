@@ -12,10 +12,9 @@ enum PageSegment: String, CaseIterable {
     case all = "All"
     case myOrder = "My Order"
     case done = "Done"
-    
 }
 
-struct ConnectionView: View {
+struct BuyerScreen: View {
     @Environment(SessionManager.self) private var session
     @State private var selectedSegment: PageSegment = .all
     @State private var selectedItem: Item? = nil
@@ -80,7 +79,7 @@ struct ConnectionView: View {
                     .padding(.vertical, 8)
                 }
                 .navigationDestination(item: $selectedItem) { item in
-                    ItemDetailView(item: item)
+                    ItemDetailScreen(item: item)
                 }
                 .background(Color(.systemGroupedBackground))
             }
@@ -131,7 +130,7 @@ struct ConnectionView: View {
                 )
             } else {
                 ForEach(myOrders, id: \.id) { order in
-                    NavigationLink(destination: ItemDetailView(
+                    NavigationLink(destination: ItemDetailScreen(
                         item: order.item,
                         primaryButtonText: "Batalkan pemesanan",
                         buttonTextColor: Color.red,
@@ -170,7 +169,7 @@ struct ConnectionView: View {
                 )
             } else {
                 ForEach(completedOrders, id: \.id) { order in
-                    NavigationLink(destination: ItemDetailView(
+                    NavigationLink(destination: ItemDetailScreen(
                         item: order.item,
                         primaryButtonText: "Batalkan pemesanan",
                         buttonTextColor: Color.red,
@@ -201,6 +200,6 @@ struct ConnectionView: View {
 }
 
 #Preview {
-    ConnectionView()
+    BuyerScreen()
         .environment(SessionManager())
 }

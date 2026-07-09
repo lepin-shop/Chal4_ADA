@@ -7,13 +7,6 @@
 import Foundation
 import SwiftData
 
-/// Status siklus hidup sebuah Order.
-enum OrderStatus: String, Codable{
-    case inProgress
-    case done
-    case canceled
-}
-
 @Model
 final class Order {
     @Attribute(.unique) var id: UUID

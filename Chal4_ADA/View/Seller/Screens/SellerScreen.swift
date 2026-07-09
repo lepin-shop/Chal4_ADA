@@ -17,6 +17,7 @@ struct SellerScreen: View {
                     Text("Jual").font(.largeTitle.bold())
                     Spacer()
                 }
+                YourPostsSection()
                 Spacer()
             }
             .padding(.horizontal, 20)

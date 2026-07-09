@@ -71,7 +71,7 @@ struct BannerCard: View {
                     colors: [.accent1, .bannerGreenEnd],
                     startPoint: .leading,
                     endPoint: .trailing
-                )       
+                )
                 HStack {
                     VStack (spacing: 0) {
                         Spacer()

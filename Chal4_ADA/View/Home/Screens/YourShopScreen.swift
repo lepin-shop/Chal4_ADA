@@ -18,6 +18,9 @@ struct YourShopScreen: View {
                         router.push(Route.post)
                     } .padding(.bottom, 24)
                     
+                    Text("Your posts")
+                        .font(.title.bold())
+                        .padding(.bottom, 16)
                     YourPostsSection()
                     Spacer()
                 }

@@ -8,19 +8,6 @@
 import Foundation
 import SwiftData
 
-/// Status penjualan sebuah Item.
-enum ItemStatus: String, Codable {
-    case onSale
-    case soldOut
-    case expired
-}
-
-enum QualityGrade: String, Codable {
-    case A
-    case B
-    case C
-}
-
 @Model
 final class Item {
     @Attribute(.unique) var id: UUID
@@ -81,9 +68,4 @@ final class Item {
         }
     }
 
-}
-
-enum PostFilter: String, CaseIterable, Identifiable {
-    case active = "Active", booked = "Booked", done = "Done"
-    var id: Self { self }
 }

@@ -1,5 +1,5 @@
 //
-//  StatusPostSegmentedFilter.swift
+//  StatusPostSegmentedControl.swift
 //  Chal4_ADA
 //
 //  Created by Danniel on 08/07/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct StatusPostSegmentedFilter: View {
+struct StatusPostSegmentedControl: View {
     @Binding var currentPostFilter: PostFilter
 
     var body: some View {

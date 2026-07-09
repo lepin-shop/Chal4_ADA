@@ -12,10 +12,7 @@ struct YourPostsSection: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
-            Text("Your posts")
-                .font(.title.bold())
-            
-            StatusPostSegmentedFilter(currentPostFilter: $currentPostFilter)
+            StatusPostSegmentedControl(currentPostFilter: $currentPostFilter)
             
             Group {
                 switch currentPostFilter {

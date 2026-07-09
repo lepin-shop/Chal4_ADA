@@ -18,6 +18,7 @@ struct BuyerScreen: View {
     @Environment(SessionManager.self) private var session
     @State private var selectedSegment: PageSegment = .all
     @State private var selectedItem: Item? = nil
+    @StateObject private var router = AppRouter.shared
     
     // taro ViewModel
     private let items = ItemsData.activeItems
@@ -40,7 +41,7 @@ struct BuyerScreen: View {
     // taro viewModel
     
     var body: some View {
-        NavigationStack {
+        NavigationStack (path: $router.path){
             VStack(spacing: 0) {
                 HStack {
                     Text("Shop")
@@ -79,7 +80,7 @@ struct BuyerScreen: View {
                     .padding(.vertical, 8)
                 }
                 .navigationDestination(item: $selectedItem) { item in
-                    ItemDetailScreen(item: item)
+                    RouteDestinationView(route: Route.itemDetail(item: item))
                 }
                 .background(Color(.systemGroupedBackground))
             }
@@ -201,5 +202,5 @@ struct BuyerScreen: View {
 
 #Preview {
     BuyerScreen()
-        .environment(SessionManager())
+        .environment(SessionManager.shared)
 }

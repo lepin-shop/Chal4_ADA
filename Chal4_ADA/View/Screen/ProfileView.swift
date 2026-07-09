@@ -37,6 +37,8 @@ struct ProfiileView: View {
         Partner(name: "Lastri Sayur", phone: "+62 857 7878 9862")
     ]
     
+    @StateObject private var route: AppRouter = AppRouter.shared
+    
     var body: some View {
         NavigationStack {
             ScrollView {

@@ -35,7 +35,7 @@ final class Item {
     var expiresAt: Date
     var status: ItemStatus
     var createdAt: Date
-    
+
     
     @Relationship(deleteRule: .cascade, inverse: \Order.item)
     var orders: [Order] = []   // order yang menargetkan item ini

@@ -16,6 +16,8 @@ import SwiftUI
 /// written as a plain class so it's safe to use outside View bodies).
 @Observable
 final class SessionManager {
+    static var shared = SessionManager()
+    
     private let storageKey = "activeUserID"
 
     /// The UUID string of whichever User is currently "logged in".
@@ -26,7 +28,7 @@ final class SessionManager {
         }
     }
 
-    init() {
+    private init() {
         activeUserID = UserDefaults.standard.string(forKey: storageKey)
     }
 

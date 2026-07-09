@@ -137,6 +137,6 @@ struct SettingsView: View {
     NavigationStack {
         SettingsView()
             .tint(.green)
-            .environment(SessionManager())
+            .environment(SessionManager.shared)
     }
 }

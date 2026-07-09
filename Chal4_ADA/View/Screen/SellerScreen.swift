@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct SellerScreen: View {
+    @StateObject private var route: AppRouter = AppRouter.shared
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack (path: $route.path) {
             VStack {
                 HStack {
                     Text("Jual").font(.largeTitle.bold())

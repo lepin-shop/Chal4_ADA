@@ -10,12 +10,10 @@ import SwiftData
 
 @main
 struct Chal4_ADAApp: App {
-    @State private var session = SessionManager()
-    
     var body: some Scene {
         WindowGroup {
             MainTabView()
-                .environment(session)
+                .environment(SessionManager.shared)
         }
         .modelContainer(for: [User.self, Item.self, Tag.self, Order.self])
     }

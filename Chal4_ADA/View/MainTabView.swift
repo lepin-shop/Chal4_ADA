@@ -34,5 +34,5 @@ struct MainTabView: View {
 
 #Preview {
     MainTabView()
-        .environment(SessionManager())
+        .environment(SessionManager.shared)
 }

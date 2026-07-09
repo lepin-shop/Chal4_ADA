@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct YourShopScreen: View {
-    @StateObject private var navigationVM = NavigationViewModel()
+    @ObservedObject private var router = AppRouter.shared
     
     var body: some View {
-        NavigationStack (path: $navigationVM.path) {
+        NavigationStack (path: $router.path) {
             ScrollView {
                 VStack (alignment: .leading, spacing: 0) {
                     BannerCard {
-                        navigationVM.goToPost()
+                        router.push(Route.post)
                     } .padding(.bottom, 24)
                     
                     YourPostsSection()
@@ -38,13 +38,7 @@ struct YourShopScreen: View {
             .background(Color(.background))
             .navigationDestination (for: Route.self) {
                 route in
-                switch route {
-                case .post:
-                    PostItemScreen()
-                        .toolbar(
-                            .hidden,
-                            for: .tabBar)
-                }
+                RouteDestinationView(route: route)
             }
         }
     }

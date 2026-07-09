@@ -20,6 +20,9 @@ struct ItemDetailScreen: View {
     
     @State private var quantity: Int = 1
     @State private var isDescriptionExpanded: Bool = false
+    @State private var showSheet = false
+    @State private var showFeedback = false
+    @State private var activeSheetMode: SheetMode = .checkout
     
     
     private var totalBayar: Double {
@@ -188,7 +191,7 @@ struct ItemDetailScreen: View {
                 
                 // Action Button (Always shows)
                 Button(action: {
-                    onPrimaryAction((quantity, totalBayar))
+                    showSheet = true
                 }) {
                     Text(primaryButtonText)
                         .font(.headline)
@@ -215,9 +218,25 @@ struct ItemDetailScreen: View {
         .background(Color(.systemGroupedBackground))
         .navigationTitle("Detail Produk")
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $showSheet){
+            DynamicSheet(
+                mode: activeSheetMode,
+                item: item,
+                onConfirm: {
+                    activeSheetMode = .qrCode
+                },
+            )
+            .presentationDetents(
+                activeSheetMode == .checkout ? [.fraction(0.85), .large] : [.fraction(0.60)]
+                )
+            .presentationDragIndicator(.visible)
+        }
+        .fullScreenCover(isPresented: $showFeedback){
+            FeedbackScreen()
+        }
     }
     
-    // MARK: - Helpers
+    // taro ViewModel
     private func formattedPrice(_ amount: Double) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
@@ -232,6 +251,7 @@ struct ItemDetailScreen: View {
         formatter.dateFormat = "HH.mm, d MMM yyyy"
         return formatter.string(from: date)
     }
+    // taro ViewModel
 }
 
 #Preview {

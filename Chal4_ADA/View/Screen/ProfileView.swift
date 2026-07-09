@@ -68,7 +68,6 @@ struct ProfiileView: View {
             .background(Color(.systemGroupedBackground))
             .toolbarTitleDisplayMode(.inlineLarge)
             .toolbar {
-                // ToolbarItemGroup lets you easily put multiple buttons next to each other
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     NavigationLink(destination: SettingsView()) {
                         Image(systemName: "gearshape")

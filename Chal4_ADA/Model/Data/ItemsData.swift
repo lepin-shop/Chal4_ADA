@@ -198,7 +198,7 @@ enum ItemsData {
 
     static let completedOrders: [Order] = {
         setup()
-        return [orderApelAndi, orderTomatBudi, orderBerasDoneSiti, orderCanceledBudi, orderCanceledSiti, orderCanceledBudi]
+        return [orderApelAndi, orderTomatBudi, orderBerasDoneSiti, orderCanceledBudi, orderCanceledSiti]
             .filter { $0.status == .done }
     }()
 

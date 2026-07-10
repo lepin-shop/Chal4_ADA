@@ -14,25 +14,35 @@ final class User {
     var phone: String
     var location: String
     var createdAt: Date
-
-    /// Relasi to-many. Default kosong: inilah yang memutus circular-init,
-    /// sehingga tidak perlu optional di mana pun.
-    /// item yang dijual user ini (sebagai seller)
+    
     @Relationship(deleteRule: .cascade, inverse: \Item.seller)
     var items: [Item] = []
 
-    /// order yang dibuat user ini (sebagai buyer)
     @Relationship(deleteRule: .cascade, inverse: \Order.buyer)
     var orders: [Order] = []
 
-    /// tag yang dimiliki user ini
-    @Relationship(deleteRule: .cascade, inverse: \Tag.owner)
-    var ownedTags: [Tag] = []
+    @Relationship(deleteRule: .cascade, inverse: \Follow.requester)
+    var sentFollows: [Follow] = []
 
-    // Relasi user-ke-user (model follow terarah, mirip Instagram).
-    var following: [User] = []   // seller/user yang di-connect oleh user ini
-    var followers: [User] = []   // user yang meng-connect ke user ini
-    
+    @Relationship(deleteRule: .cascade, inverse: \Follow.target)
+    var receivedFollows: [Follow] = []
+
+    var following: [User] {
+        sentFollows.filter { $0.status == .accepted }.map { $0.target }
+    }
+
+    var followers: [User] {
+        receivedFollows.filter { $0.status == .accepted }.map { $0.requester }
+    }
+
+    var pendingIncomingRequests: [Follow] {
+        receivedFollows.filter { $0.status == .pending }
+    }
+
+    var pendingOutgoingRequests: [Follow] {
+        sentFollows.filter { $0.status == .pending }
+    }
+
     init(
         id: UUID = UUID(),
         name: String,

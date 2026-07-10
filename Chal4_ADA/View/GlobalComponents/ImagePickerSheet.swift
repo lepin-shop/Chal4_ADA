@@ -9,6 +9,7 @@ import SwiftUI
 
 
 // Dear developer, i dont know what this does but this guy on stackoverflow does atleast...
+// Use it to show the gallery photo to pick photo
 // https://stackoverflow.com/questions/57110290/how-to-pick-image-from-gallery-in-swiftui
 
 struct ImagePickerSheet: UIViewControllerRepresentable {

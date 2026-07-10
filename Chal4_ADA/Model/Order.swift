@@ -15,7 +15,6 @@ final class Order {
     var quantityOrdered: Int
     var status: OrderStatus
     var totalPrice: Double
-    var location: String
     var createdAt: Date
 
     init(
@@ -25,7 +24,6 @@ final class Order {
         quantityOrdered: Int,
         status: OrderStatus,
         totalPrice: Double,
-        location: String,
         createdAt: Date = Date()
     ) {
         self.id = id
@@ -34,12 +32,7 @@ final class Order {
         self.quantityOrdered = quantityOrdered
         self.status = status
         self.totalPrice = totalPrice
-        self.location = location
         self.createdAt = createdAt
-
-        // Auto-wire kedua sisi-balik.
-        // item.orders.append(self)
-        // buyer.orders.append(self)
     }
 }
 

@@ -12,7 +12,7 @@ struct SettingsView: View {
     @Environment(SessionManager.self) private var session
     @State private var showSwitchAccountSheet = false
     
-    private let allUsers: [User] = [ItemsData.siti, ItemsData.budi]
+    private let allUsers: [User] = []
     private var currentUser: User? {
         session.resolveCurrentUser(in: allUsers)
     }

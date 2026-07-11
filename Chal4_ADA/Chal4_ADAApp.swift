@@ -15,6 +15,17 @@ struct Chal4_ADAApp: App {
             MainTabView()
                 .environment(SessionManager.shared)
         }
-        .modelContainer(for: [User.self, Item.self, Tag.self, Order.self])
+        .modelContainer(sharedModelContainer)
     }
+    
+    var sharedModelContainer: ModelContainer = {
+        let schema = Schema([User.self, Item.self, Order.self, Follow.self])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
+
+        do {
+            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+        } catch {
+            fatalError("Could not create ModelContainer: \(error)")
+        }
+    }()
 }

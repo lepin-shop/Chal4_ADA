@@ -15,18 +15,18 @@ struct MainTabView: View {
                 YourShopScreen()
                     .tint(.black)
             }
+            
             Tab ("Jual", systemImage: "creditcard.arrow.trianglehead.2.clockwise.rotate.90") {
                 SellerScreen()
                     .tint(.black)
             }
 
             Tab ("Beli", systemImage: "basket") {
-                BuyerScreen()
-                    .tint(.black)
+                
             }
+            
             Tab("Mitra", systemImage: "person.line.dotted.person.fill") {
-                ProfiileView()
-                    .tint(.black)
+                
             }
         }.tint(.accents)
     }

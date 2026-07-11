@@ -8,13 +8,20 @@
 import Foundation
 import SwiftUI
 
+enum UserRole {
+    case buyer
+    case seller
+}
+
 @Observable
 final class SessionManager {
     static var shared = SessionManager()
     
+    var role: UserRole = .buyer
+    
     private let storageKey = "activeUserID"
-
-    var activeUserID: String? {
+    
+    private var activeUserID: String? {
         didSet {
             UserDefaults.standard.set(activeUserID, forKey: storageKey)
         }
@@ -24,8 +31,9 @@ final class SessionManager {
         activeUserID = UserDefaults.standard.string(forKey: storageKey)
     }
 
-    func setActiveUser(_ user: User) {
+    func setActiveUser(_ user: User, role: UserRole) {
         activeUserID = user.id.uuidString
+        self.role = role
     }
 
     func logout() {

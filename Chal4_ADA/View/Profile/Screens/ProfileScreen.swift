@@ -14,18 +14,21 @@ struct ProfileScreen: View {
     var body: some View {
         NavigationStack (path: $router.path) {
             VStack {
-                
+                ProfileCard().padding(.top, 20)
+                Spacer()
             }
             .navigationTitle("Profil \(SessionManager.shared.role.rawValue)")
             .toolbar {
                 ToolbarItem(id: "Logout", placement: .topBarTrailing) {
                     Button {
-                        
+                        router.push(.switchAccount)
                     } label: {
                         Label("Logout", systemImage: "rectangle.portrait.and.arrow.forward")
                     }
                     .tint(.destructivem1)
                 }
+            }.navigationDestination(for: Route.self) { route in
+                RouteDestinationView(route: route)
             }
         }
     }

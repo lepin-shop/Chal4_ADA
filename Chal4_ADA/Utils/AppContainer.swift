@@ -66,14 +66,15 @@ final class AppContainer {
         followService = FollowService(repository: followRepository)
         
         seedIfNeeded()
+        restoreSession()
     }
 
     private func seedIfNeeded() {
         let existingUsers = (try? userRepository.fetchAll()) ?? []
         guard existingUsers.isEmpty else { return }
         
-        let seller = User(name: "Toko Buah Segar", phone: "0812-0000-0001", location: "Jakarta")
-        let buyer = User(name: "Budi", phone: "0812-0000-0002", location: "Bandung")
+        let seller = User(name: "Toko Buah Segar", phone: "0812-0000-0001", location: "Jakarta", email: "tokobuah*****o@gmail.com")
+        let buyer = User(name: "Budi", phone: "0812-0000-0002", location: "Bandung", email: "budi*****o@gmail.com")
         userRepository.insert(seller)
         userRepository.insert(buyer)
         
@@ -90,11 +91,21 @@ final class AppContainer {
                 pricePerUnit: 15_000,
                 expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7)
             )
-            
-            SessionManager.shared.setActiveUser(buyer, role: .buyer)
         } catch {
             print("Seed gagal: \(error)")
             return
         }
     }
+    
+    private func restoreSession() {
+        let users = (try? userRepository.fetchAll()) ?? []
+        guard let activeUserID = SessionManager.shared.activeUserID else {
+            SessionManager.shared.setActiveUser(users.first!, role: .buyer)
+            return
+        }
+    
+        let resolved = users.first { $0.id.uuidString == activeUserID }
+        SessionManager.shared.setActiveUser(resolved!, role: .buyer)
+    }
 }
+

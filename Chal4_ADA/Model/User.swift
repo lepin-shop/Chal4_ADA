@@ -14,6 +14,7 @@ final class User {
     var phone: String
     var location: String
     var createdAt: Date
+    var email: String
     
     @Relationship(deleteRule: .cascade, inverse: \Item.seller)
     var items: [Item] = []
@@ -48,12 +49,14 @@ final class User {
         name: String,
         phone: String,
         location: String,
-        createdAt: Date = Date()
+        createdAt: Date = Date(),
+        email: String
     ) {
         self.id = id
         self.name = name
         self.phone = phone
         self.location = location
         self.createdAt = createdAt
+        self.email = email
     }
 }

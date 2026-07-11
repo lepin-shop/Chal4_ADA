@@ -10,7 +10,7 @@ import SwiftUI
 
 enum Route: Hashable {
     case post
-    case itemDetail(item: Item)
+//    case itemDetail(item: Item)
 }
 
 struct RouteDestinationView: View {
@@ -20,8 +20,6 @@ struct RouteDestinationView: View {
         switch route {
         case .post:
             PostItemScreen()
-        case .itemDetail(item: let item):
-            ItemDetailScreen(item: item)
         }
     }
 }

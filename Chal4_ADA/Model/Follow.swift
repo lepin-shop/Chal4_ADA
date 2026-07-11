@@ -14,7 +14,7 @@ final class Follow {
     var requester: User
     var target: User
     var status: FollowStatus
-    var createdAt: Date 
+    var createdAt: Date
     var respondedAt: Date?
 
     #Unique<Follow>([\.requester, \.target])

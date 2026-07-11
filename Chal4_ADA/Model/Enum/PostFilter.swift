@@ -5,7 +5,7 @@
 //  Created by Danniel on 10/07/26.
 //
 
-enum PostFilter {
+nonisolated enum PostFilter {
     case active
     case booked
     case done

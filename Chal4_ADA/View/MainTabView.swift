@@ -7,32 +7,29 @@
 
 import Foundation
 import SwiftUI
+import SwiftData
 
 struct MainTabView: View {
     var body: some View {
         TabView {
-            Tab ("Eksplor", systemImage: "storefront.fill") {
-                YourShopScreen()
-                    .tint(.black)
+            Tab ("Jual", systemImage: "storefront.fill") {
+
             }
             
-            Tab ("Jual", systemImage: "creditcard.arrow.trianglehead.2.clockwise.rotate.90") {
-                SellerScreen()
-                    .tint(.black)
+            Tab ("Notifikasi", systemImage: "bell.fill") {
+
             }
 
-            Tab ("Beli", systemImage: "basket") {
-                
+            Tab ("Profil", systemImage: "person.fill") {
+                ProfileScreen()
             }
-            
-            Tab("Mitra", systemImage: "person.line.dotted.person.fill") {
-                
-            }
-        }.tint(.accents)
+        }
+        .tint(.accents)
     }
 }
 
 #Preview {
     MainTabView()
         .environment(SessionManager.shared)
+        .modelContainer(AppContainer.shared.modelContainer)
 }

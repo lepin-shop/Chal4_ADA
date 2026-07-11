@@ -10,3 +10,4 @@ enum FollowStatus: String, Codable {
     case accepted
     case declined
 }
+

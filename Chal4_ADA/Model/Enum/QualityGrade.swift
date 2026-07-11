@@ -10,3 +10,4 @@ enum QualityGrade: Codable {
     case standard
     case rotten
 }
+ 

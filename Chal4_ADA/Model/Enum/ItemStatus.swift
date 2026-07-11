@@ -8,5 +8,7 @@
 enum ItemStatus: String, Codable {
     case onSale
     case soldOut
+    case closed
     case expired
 }
+ 

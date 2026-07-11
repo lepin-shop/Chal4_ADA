@@ -5,8 +5,9 @@
 //  Created by Danniel on 10/07/26.
 //
 
-enum OrderStatus: String, Codable{
+enum OrderStatus: String, Codable {
     case inProgress
     case done
-    case canceled
+    case cancelledBySeller
 }
+ 

@@ -15,6 +15,8 @@ final class Order {
     var quantityOrdered: Int
     var status: OrderStatus
     var totalPrice: Double
+    var notes: String?
+    var completionCode: String
     var createdAt: Date
 
     init(
@@ -24,6 +26,8 @@ final class Order {
         quantityOrdered: Int,
         status: OrderStatus,
         totalPrice: Double,
+        notes: String? = nil,
+        completionCode: String = Order.generateCompletionCode(),
         createdAt: Date = Date()
     ) {
         self.id = id
@@ -32,7 +36,14 @@ final class Order {
         self.quantityOrdered = quantityOrdered
         self.status = status
         self.totalPrice = totalPrice
+        self.notes = notes
+        self.completionCode = completionCode
         self.createdAt = createdAt
     }
 }
 
+extension Order {
+    static func generateCompletionCode() -> String {
+        String(format: "%06d", Int.random(in: 0...999_999))
+    }
+}

@@ -20,8 +20,6 @@ struct SettingsView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 24) {
-                
-                // 1. Profile Summary Card
                 HStack(spacing: 16) {
                     Circle()
                         .fill(Color.green.opacity(0.2))
@@ -45,8 +43,7 @@ struct SettingsView: View {
                 .padding(20)
                 .background(Color(.systemBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 24))
-                
-                // 2. Settings Menu Card
+        
                 VStack(spacing: 0) {
                     settingsRow(icon: "person.text.rectangle", title: "Informasi Akun")
                     Divider().padding(.leading, 48)
@@ -59,7 +56,6 @@ struct SettingsView: View {
                 .background(Color(.systemBackground))
                 .clipShape(RoundedRectangle(cornerRadius: 24))
                 
-                // 3. Logout / Keluar Button
                 Button(action: {
                     showSwitchAccountSheet = true
                 }) {
@@ -106,7 +102,6 @@ struct SettingsView: View {
         .navigationBarTitleDisplayMode(.large)
     }
     
-    // MARK: - Reusable Row Component
     private func settingsRow(icon: String, title: String) -> some View {
         Button(action: {
             // Action for row tap

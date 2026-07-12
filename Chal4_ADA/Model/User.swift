@@ -27,6 +27,9 @@ final class User {
 
     @Relationship(deleteRule: .cascade, inverse: \Follow.target)
     var receivedFollows: [Follow] = []
+    
+    @Relationship(deleteRule: .cascade, inverse: \Notification.user)
+    var notifications: [Notification] = []
 
     var following: [User] {
         sentFollows.filter { $0.status == .accepted }.map { $0.target }

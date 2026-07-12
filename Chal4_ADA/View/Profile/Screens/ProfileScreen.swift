@@ -17,6 +17,8 @@ struct ProfileScreen: View {
                 ProfileCard().padding(.top, 20)
                 Spacer()
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.background)
             .navigationTitle("Profil \(SessionManager.shared.role.rawValue)")
             .toolbar {
                 ToolbarItem(id: "Logout", placement: .topBarTrailing) {

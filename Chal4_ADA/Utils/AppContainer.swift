@@ -41,15 +41,18 @@ final class AppContainer {
     let itemRepository: ItemRepository
     let orderRepository: OrderRepository
     let followRepository: FollowRepository
+    let notificationRepository: NotificationRepository
+    
     let itemService: ItemService
     let orderService: OrderService
     let followService: FollowService
+    let notificationService: NotificationService
     
     @MainActor
     private init() {
         do {
             modelContainer = try ModelContainer(
-                for: User.self, Item.self, Order.self, Follow.self
+                for: User.self, Item.self, Order.self, Follow.self, Notification.self
             )
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
@@ -60,10 +63,12 @@ final class AppContainer {
         itemRepository = ItemRepository(context: context)
         orderRepository = OrderRepository(context: context)
         followRepository = FollowRepository(context: context)
+        notificationRepository = NotificationRepository(context: context)
         
         itemService = ItemService(repository: itemRepository)
         orderService = OrderService(repository: orderRepository)
         followService = FollowService(repository: followRepository)
+        notificationService = NotificationService(repository: notificationRepository)
         
         seedIfNeeded()
         restoreSession()
@@ -80,8 +85,13 @@ final class AppContainer {
         
         do {
             try userRepository.save()
+            
             let follow = try followService.sendRequest(from: buyer, to: seller)
+            try notificationService.notifyFollowRequest(follow)
+            
             try followService.accept(follow)
+            try notificationService.markFollowRequestAccepted(follow)
+            
             try itemService.createItem(
                 seller: seller,
                 title: "Apel Fuji",

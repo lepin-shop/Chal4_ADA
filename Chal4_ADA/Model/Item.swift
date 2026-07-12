@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftData
+import UIKit
 
 @Model
 final class Item {
@@ -14,7 +15,6 @@ final class Item {
     var seller: User
     var title: String
     var itemDescription: String
-    var mediaUrl: String
     var qualityGrade: QualityGrade
     var quantity: Int
     var quantityAvailable: Int
@@ -22,21 +22,31 @@ final class Item {
     var expiresAt: Date
     var status: ItemStatus
     var createdAt: Date
-
+    
+    @Attribute(.externalStorage) var imageData: Data?
+    
+    var uiImage: UIImage? {
+        get {
+            guard let imageData else {
+                return nil
+            }
+            
+            return UIImage(data: imageData)
+        }
+        
+        set {
+            imageData = newValue?.jpegData(compressionQuality: 0.8)
+        }
+    }
     
     @Relationship(deleteRule: .cascade, inverse: \Order.item)
-    var orders: [Order] = []   // order yang menargetkan item ini
-    
-    // one-to-many one item could be scoped to several tags
-    @Relationship(inverse: \Tag.visibleItems)
-    var tagsVisibility: [Tag] = []
+    var orders: [Order] = [] 
 
     init(
         id: UUID = UUID(),
         seller: User,
         title: String,
         description: String,
-        mediaUrl: String,
         qualityGrade: QualityGrade,
         quantity: Int,
         quantityAvailable: Int,
@@ -49,7 +59,6 @@ final class Item {
         self.seller = seller
         self.title = title
         self.itemDescription = description
-        self.mediaUrl = mediaUrl
         self.qualityGrade = qualityGrade
         self.quantity = quantity
         self.quantityAvailable = quantityAvailable
@@ -57,15 +66,5 @@ final class Item {
         self.expiresAt = expiresAt
         self.status = status
         self.createdAt = createdAt
-
-        // Auto-wire sisi-balik agar graf selalu konsisten.
-        // seller.items.append(self)
     }
-    
-    func add_tag (_ tag: Tag) {
-        if !tagsVisibility.contains(tag) {
-            tagsVisibility.append(tag)
-        }
-    }
-
 }

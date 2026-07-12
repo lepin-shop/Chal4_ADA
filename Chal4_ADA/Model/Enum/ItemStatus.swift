@@ -5,8 +5,10 @@
 //  Created by Danniel on 10/07/26.
 //
 
-enum ItemStatus: String, Codable {
+nonisolated enum ItemStatus: String, Codable {
     case onSale
     case soldOut
+    case closed
     case expired
 }
+ 

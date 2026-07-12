@@ -13,7 +13,11 @@ enum Route: Hashable {
     case postSuccess
     case sellerGoods
     case sellerGoodDetail(good: SellerGood)
+    case switchAccount
+    case home
     case itemDetail(item: Item)
+    case orders
+    case activeOrderDetailScreen(order: Order)
 }
 
 struct RouteDestinationView: View {
@@ -34,8 +38,16 @@ struct RouteDestinationView: View {
             .toolbar(.hidden, for: .navigationBar)
         case .sellerGoodDetail(good: let good):
             SellerGoodDetailScreen(good: good)
+        case .home:
+            MainTabView()
+        case .switchAccount:
+            AccountSwitcherScreen()
         case .itemDetail(item: let item):
             ItemDetailScreen(item: item)
+        case .orders:
+            CartScreen()
+        case .activeOrderDetailScreen(order: let order):
+            ActiveOrderDetailScreen(order: order, item: order.item, quantityBought: order.quantityOrdered)
         }
     }
 }

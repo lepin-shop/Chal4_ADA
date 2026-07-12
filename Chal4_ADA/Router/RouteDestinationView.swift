@@ -9,7 +9,6 @@ import SwiftUI
 
 
 enum Route: Hashable {
-    case post
     case switchAccount
     case home
 }
@@ -19,8 +18,6 @@ struct RouteDestinationView: View {
     
     var body: some View {
         switch route {
-        case .post:
-            PostItemScreen()
         case .home:
             MainTabView()
         case .switchAccount:

@@ -6,11 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct EmptyGoodsScreen: View {
     var onSell: () -> Void = {}
 
-    var hasGoods: Bool = false
+    @Query var items: [Item]
+    
+    var hasGoods: Bool {
+        return !items.isEmpty
+    }
 
     var body: some View {
             ZStack(alignment: .top) {
@@ -116,24 +121,4 @@ struct EmptyGoodsScreen: View {
         .padding(.horizontal, 16)
         .padding(.top, 20)
     }
-}
-
-
-//#Preview{
-//    TabView {
-//        Tab("Jual", systemImage: "storefront.fill") {
-//            EmptyGoodsScreen()
-//        }
-//        Tab("Notifikasi", systemImage: "bell.fill") {
-//            EmptyGoodsScreen()
-//        }
-//        Tab("Profil", systemImage: "person.fill") {
-//            EmptyGoodsScreen()
-//        }
-//    }
-//    .tint(.accents)
-//}
-
-#Preview{
-    EmptyGoodsScreen();
 }

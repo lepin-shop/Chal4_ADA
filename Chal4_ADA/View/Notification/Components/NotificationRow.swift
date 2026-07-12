@@ -26,11 +26,11 @@ struct NotificationRow: View {
             
             Spacer(minLength: 8)
             
-            if let actionLabel {
-                Button(actionLabel, action: onPrimaryAction)
-                    .buttonStyle(.borderedProminent)
-                    .tint(.green)
-            }
+//            if let actionLabel {
+//                Button(actionLabel, action: onPrimaryAction)
+//                    .buttonStyle(.borderedProminent)
+//                    .tint(.green)
+//            }
         }
         .padding(.vertical, 12)
         .padding(.horizontal, 16)

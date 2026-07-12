@@ -111,7 +111,3 @@ struct PhotoConfirmationScreen: View {
             }
     }
 }
-
-#Preview {
-    PhotoConfirmationScreen(photos: [])
-}

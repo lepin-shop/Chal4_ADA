@@ -22,7 +22,7 @@ enum Route: Hashable {
 
 struct RouteDestinationView: View {
     let route: Route
-
+    
     var body: some View {
         switch route {
         case .post:
@@ -31,8 +31,9 @@ struct RouteDestinationView: View {
             PostSuccessScreen()
         case .sellerGoods:
             EmptyGoodsScreen(
-                onSell: { AppRouter.shared.push(.post) },
-                hasGoods: true
+                onSell: {
+                    AppRouter.shared.push(.post)
+                },
             )
             .navigationBarBackButtonHidden(true)
             .toolbar(.hidden, for: .navigationBar)

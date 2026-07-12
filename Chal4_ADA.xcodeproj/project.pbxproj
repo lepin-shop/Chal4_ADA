@@ -15,33 +15,9 @@
 		9508B4072FF63BB200180A71 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		FB9DD076300432F200925E88 /* Exceptions for "Chal4_ADA" folder in "Chal4_ADA" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				View/Buyer/Screen/FeedbackScreen.swift,
-			);
-			target = 9508B3F82FF63B4E00180A71 /* Chal4_ADA */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		FB9DD077300432F200925E88 /* Exceptions for "Chal4_ADA" folder in "Copy Bundle Resources" phase from "Chal4_ADA" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = 9508B3F72FF63B4E00180A71 /* Resources */;
-			membershipExceptions = (
-				View/Buyer/Screen/FeedbackScreen.swift,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		9508B3FB2FF63B4E00180A71 /* Chal4_ADA */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				FB9DD076300432F200925E88 /* Exceptions for "Chal4_ADA" folder in "Chal4_ADA" target */,
-				FB9DD077300432F200925E88 /* Exceptions for "Chal4_ADA" folder in "Copy Bundle Resources" phase from "Chal4_ADA" target */,
-			);
 			path = Chal4_ADA;
 			sourceTree = "<group>";
 		};
@@ -284,7 +260,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 69B2P325UH;
+				DEVELOPMENT_TEAM = XC4BM85HNK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Aplikasi butuh akses kamera untuk memotret produk jualan";
@@ -318,7 +294,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 69B2P325UH;
+				DEVELOPMENT_TEAM = XC4BM85HNK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Aplikasi butuh akses kamera untuk memotret produk jualan";

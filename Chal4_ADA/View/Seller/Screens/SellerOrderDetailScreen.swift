@@ -213,6 +213,3 @@ struct SellerOrderDetailScreen: View {
         )
     }
 }
-#Preview {
-    SellerOrderDetailScreen()
-}

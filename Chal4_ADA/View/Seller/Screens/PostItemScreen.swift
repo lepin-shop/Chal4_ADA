@@ -218,6 +218,7 @@ struct PostItemScreen: View {
             // Poin 2: tombol lanjut hijau di kanan atas
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
+                    
                     isRecipientSheetPresented = true
                 } label: {
                     Image(systemName: "arrow.up")
@@ -232,14 +233,4 @@ struct PostItemScreen: View {
         }
         .background(Color.background)
     }
-}
-
-#Preview {
-    NavigationStack {
-        PostItemScreen()
-    }
-}
-
-#Preview {
-    MainTabView()
 }

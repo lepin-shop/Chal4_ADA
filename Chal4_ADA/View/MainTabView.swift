@@ -10,6 +10,8 @@ import SwiftUI
 import SwiftData
 
 struct MainTabView: View {
+    @ObservedObject private var router = AppRouter.shared
+    
     var body: some View {
         TabView {
             if SessionManager.shared.role == .buyer {
@@ -17,9 +19,16 @@ struct MainTabView: View {
                     BuyerScreen()
                         .id(SessionManager.shared.activeUserID)
                 }
-
+                
             } else {
                 Tab ("Jual", systemImage: "storefront.fill") {
+                    NavigationStack(path: $router.path) {
+                        EmptyGoodsScreen(onSell: { router.push(.post) })
+                            .navigationDestination(for: Route.self) { route in
+                                RouteDestinationView(route: route)
+                            }
+                    }
+                    .tint(.black)
                     
                 }
             }
@@ -28,7 +37,7 @@ struct MainTabView: View {
                 NotificationScreen()
                     .id(SessionManager.shared.activeUserID)
             }
-
+            
             Tab ("Profil", systemImage: "person.fill") {
                 ProfileScreen()
             }

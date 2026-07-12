@@ -183,37 +183,12 @@ struct PostItemScreen: View {
             ImagePickerSheet(image: self.$image)
         }
         .fullScreenCover(isPresented: $isCameraPresented) {
-            NavigationStack {
-                VStack(spacing: 20) {
-                    Image(systemName: "camera.circle.fill")
-                        .font(.system(size: 60))
-                        .foregroundColor(.gray)
-                    
-                    Text("Kamera Belum Tersedia")
-                        .font(.title3.bold())
-                    
-                    Text("Screen 'CameraCaptureScreen' masih dalam tahap pengembangan.")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 32)
-                    
-                    Button("Tutup") {
-                        isCameraPresented = false
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(.accents)
+            CameraCaptureScreen(onComplete: { images in
+                // Pakai foto pertama sebagai preview produk untuk sementara.
+                if let first = images.first {
+                    image = Image(uiImage: first)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color(.systemGroupedBackground))
-                .toolbar {
-                    ToolbarItem(placement: .topBarLeading) {
-                        Button("Batal") {
-                            isCameraPresented = false
-                        }
-                    }
-                }
-            }
+            })
         }
         .sheet(isPresented: $isLocationSheetPresented) {
             PickupLocationSheet(location: $pickupLocation)

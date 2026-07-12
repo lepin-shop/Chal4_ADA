@@ -2,17 +2,14 @@
 //  PostSuccessScreen.swift
 //  Chal4_ADA
 //
-//  Created by Danniel on 12/07/26.
+//  Created by Filipus Darren Siswanto on 12/07/26.
 //
 
 import SwiftUI
 
-/// Layar konfirmasi setelah dagangan berhasil disebarkan.
-/// Otomatis kembali ke halaman jual setelah hitung mundur habis.
 struct PostSuccessScreen: View {
     @ObservedObject private var router = AppRouter.shared
 
-    /// Detik tersisa sebelum otomatis kembali ke halaman jual.
     @State private var remaining: Int = 34
 
     var body: some View {

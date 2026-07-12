@@ -61,7 +61,7 @@ final class OrderService {
         guard order.status == .inProgress else {
             throw OrderError.orderNotInProgress
         }
-        order.status = .cancelledBySeller
+        order.status = .cancelled
         
         let item = order.item
         item.quantityAvailable += order.quantityOrdered

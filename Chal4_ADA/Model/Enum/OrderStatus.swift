@@ -8,6 +8,6 @@
 nonisolated enum OrderStatus: String, Codable {
     case inProgress
     case done
-    case cancelledBySeller
+    case cancelled
 }
  

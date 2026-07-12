@@ -11,6 +11,9 @@ import SwiftUI
 enum Route: Hashable {
     case switchAccount
     case home
+    case itemDetail(item: Item)
+    case orders
+    case activeOrderDetailScreen(order: Order)
 }
 
 struct RouteDestinationView: View {
@@ -22,6 +25,12 @@ struct RouteDestinationView: View {
             MainTabView()
         case .switchAccount:
             AccountSwitcherScreen()
+        case .itemDetail(item: let item):
+            ItemDetailScreen(item: item)
+        case .orders:
+            CartScreen()
+        case .activeOrderDetailScreen(order: let order):
+            ActiveOrderDetailScreen(order: order, item: order.item, quantityBought: order.quantityOrdered)
         }
     }
 }

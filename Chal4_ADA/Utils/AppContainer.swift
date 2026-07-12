@@ -101,6 +101,37 @@ final class AppContainer {
                 pricePerUnit: 15_000,
                 expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7)
             )
+            
+            try itemService.createItem(
+                seller: seller,
+                title: "Apel Fuji",
+                description: "Segar dari kebun",
+                qualityGrade: .fresh,
+                quantity: 10,
+                pricePerUnit: 15_000,
+                expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7)
+            )
+
+            try itemService.createItem(
+                seller: seller,
+                title: "Apel Fuji",
+                description: "Segar dari kebun",
+                qualityGrade: .fresh,
+                quantity: 10,
+                pricePerUnit: 15_000,
+                expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7)
+            )
+
+            try itemService.createItem(
+                seller: seller,
+                title: "Apel Fuji",
+                description: "Segar dari kebun",
+                qualityGrade: .fresh,
+                quantity: 10,
+                pricePerUnit: 15_000,
+                expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7)
+            )
+
         } catch {
             print("Seed gagal: \(error)")
             return

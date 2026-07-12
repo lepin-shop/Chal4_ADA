@@ -8,199 +8,122 @@
 import Foundation
 import SwiftUI
 
-enum PageSegment: String, CaseIterable {
-    case all = "All"
-    case myOrder = "My Order"
-    case done = "Done"
-}
+
 
 struct BuyerScreen: View {
     @Environment(SessionManager.self) private var session
-    @State private var selectedSegment: PageSegment = .all
     @State private var selectedItem: Item? = nil
-    @StateObject private var router = AppRouter.shared
+    @State private var searchText: String = ""
+    @ObservedObject private var router = AppRouter.shared
+    
+    private var emptyState: EmptyState = EmptyState(icon: "cart.badge.questionmark", message: "Belum ada mitra yang posting produk untuk kamu")
     
     // taro ViewModel
     private let items = ItemsData.activeItems
-    private let orders = ItemsData.activeOrders
-    private let completeOrders = ItemsData.completedOrders
     
     private var browsableItems: [Item] {
         guard let currentUserID = session.activeUserID else { return items }
         return items.filter { $0.seller.id.uuidString != currentUserID }
     }
     
-    private var myOrders: [Order] {
-        guard let currentUserID = session.activeUserID else { return [] }
-        return orders.filter { $0.buyer.id.uuidString == currentUserID }
-    }
-    private var completedOrders: [Order] {
-        guard let currentUserID = session.activeUserID else { return [] }
-        return completeOrders.filter { $0.buyer.id.uuidString == currentUserID }
-    }
+   
     // taro viewModel
+    private let columns = [
+        GridItem(.flexible(), spacing: 16),
+        GridItem(.flexible(), spacing: 16)
+    ]
     
     var body: some View {
         NavigationStack (path: $router.path){
-            VStack(spacing: 0) {
-                HStack {
-                    Text("Shop")
-                        .font(.largeTitle.weight(.bold))
+            ZStack(alignment: .top) {
+                Color(.systemGray6).ignoresSafeArea()
+                VStack(spacing: 0) {
+                    heroHeader
                     Spacer()
-                }
-                .padding(.horizontal, 16)
-                .padding(.top, 16)
-                .background(Color(.systemGroupedBackground))
-                
-                
-                Picker("Connection Segments", selection: $selectedSegment) {
-                    ForEach(PageSegment.allCases, id: \.self) { segment in
-                        Text(segment.rawValue)
-                            .tag(segment)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal, 16)
-                .padding(.vertical, 12)
-                .background(Color(.systemGroupedBackground))
-                
-                ScrollView {
-                    LazyVStack(spacing: 16) {
-                        switch selectedSegment {
-                        case .all:
-                            allSegmentView
-                        case .myOrder:
-                            myOrderSegmentView
-                        case .done:
-                            doneSegmentView
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 16,) {
+                            ForEach(browsableItems) { item in
+                                Button(action: {
+                                    router.push(Route.itemDetail(item: item))
+                                }) {
+                                    ProductGridCard(item: item)
+                                        .padding(.horizontal, 6)
+                                        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 10)
+                                }
+                                .buttonStyle(.plain)
+                            }
                         }
-                        
+                        Spacer()
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
                 }
-                .navigationDestination(item: $selectedItem) { item in
-                    RouteDestinationView(route: Route.itemDetail(item: item))
+                .toolbarBackground(.hidden, for: .navigationBar)
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button("Cart", systemImage: "cart", action: {
+                            router.push(Route.orders)
+                        })
+                        .badge(3)
+                        .tint(.primary)
+                    }
                 }
-                .background(Color(.systemGroupedBackground))
+                .navigationDestination(for: Route.self) { route in
+                                 RouteDestinationView(route: route)
+                            }
             }
-            .navigationTitle("Connections")
-            .toolbarTitleDisplayMode(.inlineLarge)
-            .toolbar {
-                ToolbarItem {
-                    Button("Account", systemImage: "bell", action: {}
-                           
+        }
+    }
+    
+    // TODO: jadikan reusable component
+    private var heroHeader: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            HStack(alignment: .top) {
+                Text("Dari sisa jadi\nbahas usaha")
+                    .font(.system(size: 32, weight: .bold))
+                    .foregroundStyle(.white)
+                    .lineLimit(2)
+                
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
+            
+            HStack(spacing: 12) {
+                Image(systemName: "magnifyingglass").foregroundStyle(.gray).font(.system(size: 18, weight: .semibold))
+                                TextField("Cari buah grade B", text: $searchText).font(.subheadline)
+                                Image(systemName: "mic").foregroundStyle(.gray).font(.system(size: 18, weight: .semibold))
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 14)
+            .background(Color(.systemBackground).opacity(0.9))
+            .clipShape(Capsule())
+            .padding(.horizontal, 20)
+            .padding(.bottom, 24)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        
+        .background(
+            ZStack(alignment: .bottomTrailing) {
+                Color(red: 0.35, green: 0.55, blue: 0.40)
+                Image("CharacterHeader")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 180)
+                    .offset(x: -50, y: 0)
+            }
+                .clipShape(
+                    .rect(
+                        bottomLeadingRadius: 32,
+                        bottomTrailingRadius: 32,
                     )
-                    .badge(3)
-                    .tint(.black)
-                }
-            }
-        }
-    }
-    
-    private var allSegmentView: some View {
-        Group {
-            if browsableItems.isEmpty {
-                EmptyState(
-                    icon: "basket",
-                    message: "Belum ada barang yang tersedia."
                 )
-            } else {
-                ForEach(browsableItems, id: \.id) { item in
-                    ItemCard(
-                        item: item,
-                        buttonText: "Order",
-                        buttonColor: .blue,
-                        grade: String(describing: item.qualityGrade),
-                        quantity: item.quantity,
-                        price: NSDecimalNumber(decimal: Decimal(item.pricePerUnit)).doubleValue
-                    ) {
-                        selectedItem = item
-                    }
-                }
-            }
-        }
+                .ignoresSafeArea(edges: .top)
+        )
+        .shadow(color: .black.opacity(0.08), radius: 10, x: 0, y: 5)
     }
-    
-    private var myOrderSegmentView: some View {
-        Group {
-            if myOrders.isEmpty {
-                EmptyState(
-                    icon: "doc.text.magnifyingglass",
-                    message: "Kamu belum memiliki pesanan aktif."
-                )
-            } else {
-                ForEach(myOrders, id: \.id) { order in
-                    NavigationLink(destination: ItemDetailScreen(
-                        item: order.item,
-                        primaryButtonText: "Batalkan pemesanan",
-                        buttonTextColor: Color.red,
-                        isCheckoutMode: false,
-                        buttonBackgroundColor: Color(.systemGray5),
-                        onPrimaryAction: { quantity, total in
-                            print("Order cancelled!")
-                            // future logic button
-                        }
-                    )) {
-                        ItemCard(
-                            item: order.item,
-                            buttonText: "Detail",
-                            buttonColor: Color.green,
-                            grade: String(describing: order.item.qualityGrade),
-                            quantity: order.item.quantity,
-                            price: NSDecimalNumber(decimal: Decimal(order.item.pricePerUnit)).doubleValue
-                        ) {
-                            selectedItem = order.item
-                        }
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-        }
-    }
-    
-    private var doneSegmentView: some View {
-        Group {
-            // Assuming you have a completedOrders array in your real data
-            if completedOrders.isEmpty {
-                EmptyState(
-                    icon: "checkmark.circle.fill",
-                    message: "Belum ada pesanan yang selesai.",
-                    iconColor: .green // Custom green color for the "Done" state
-                )
-            } else {
-                ForEach(completedOrders, id: \.id) { order in
-                    NavigationLink(destination: ItemDetailScreen(
-                        item: order.item,
-                        primaryButtonText: "Batalkan pemesanan",
-                        buttonTextColor: Color.red,
-                        isCheckoutMode: false,
-                        buttonBackgroundColor: Color(.systemGray5),
-                        onPrimaryAction: { quantity, total in
-                            print("Order cancelled!")
-                            // future logic button
-                        }
-                    )) {
-                        ItemCard(
-                            item: order.item,
-                            buttonText: "Detail",
-                            buttonColor: Color.green,
-                            grade: String(describing: order.item.qualityGrade),
-                            quantity: order.item.quantity,
-                            price: NSDecimalNumber(decimal: Decimal(order.item.pricePerUnit)).doubleValue
-                        ) {
-                            selectedItem = order.item
-                        }
-                    }
-                    .buttonStyle(.plain)
-                }
-            }
-        }
-    }
-    
 }
+    
 
 #Preview {
-    BuyerScreen()
+    MainTabView()
         .environment(SessionManager.shared)
 }

@@ -10,6 +10,7 @@ import SwiftUI
 
 enum Route: Hashable {
     case post
+    case orders
     case itemDetail(item: Item)
 }
 
@@ -22,6 +23,9 @@ struct RouteDestinationView: View {
             PostItemScreen()
         case .itemDetail(item: let item):
             ItemDetailScreen(item: item)
+        case .orders:
+            CartScreen()
         }
+        
     }
 }

@@ -15,6 +15,6 @@ struct Chal4_ADAApp: App {
             MainTabView()
                 .environment(SessionManager.shared)
         }
-        .modelContainer(for: [User.self, Item.self, Tag.self, Order.self])
+        .modelContainer(for: [User.self, Item.self, Order.self])
     }
 }

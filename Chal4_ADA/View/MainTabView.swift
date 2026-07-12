@@ -9,22 +9,24 @@ import Foundation
 import SwiftUI
 
 struct MainTabView: View {
+    @ObservedObject private var router = AppRouter.shared
+
     var body: some View {
         TabView {
-            Tab ("Eksplor", systemImage: "storefront.fill") {
+            Tab ("Jual", systemImage: "storefront.fill") {
+                NavigationStack(path: $router.path) {
+                    EmptyGoodsScreen(onSell: { router.push(.post) })
+                        .navigationDestination(for: Route.self) { route in
+                            RouteDestinationView(route: route)
+                        }
+                }
+                .tint(.black)
+            }
+            Tab ("Notification", systemImage: "bell.fill") {
                 YourShopScreen()
                     .tint(.black)
             }
-            Tab ("Jual", systemImage: "creditcard.arrow.trianglehead.2.clockwise.rotate.90") {
-                SellerScreen()
-                    .tint(.black)
-            }
-
-            Tab ("Beli", systemImage: "basket") {
-                BuyerScreen()
-                    .tint(.black)
-            }
-            Tab("Mitra", systemImage: "person.line.dotted.person.fill") {
+            Tab("Profile", systemImage: "person.fill") {
                 ProfiileView()
                     .tint(.black)
             }

@@ -73,3 +73,7 @@ struct FeedbackScreen: View {
         }
     }
 }
+
+#Preview {
+    FeedbackScreen()
+}

@@ -31,4 +31,11 @@ class AppRouter: ObservableObject {
     func popToRoot() {
         path.removeLast(path.count)
     }
+
+    /// Mengosongkan seluruh stack lalu push satu route baru.
+    /// Dipakai untuk "pindah halaman" tanpa menyisakan riwayat sebelumnya.
+    func replace(with route: Route) {
+        path.removeLast(path.count)
+        path.append(route)
+    }
 }

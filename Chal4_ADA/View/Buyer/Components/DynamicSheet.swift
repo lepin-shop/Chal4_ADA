@@ -95,12 +95,12 @@ struct DynamicSheet: View {
         VStack(spacing: 0) {
             // Product Summary
             HStack(alignment: .top, spacing: 12) {
-                if item.imageData != nil {
+                if item.imageData1 != nil {
                     RoundedRectangle(cornerRadius: 12)
                         .fill(Color(.systemGroupedBackground))
                         .frame(width: 64, height: 64)
                         .overlay(
-                            Image(uiImage: item.uiImage!)
+                            Image(uiImage: item.uiImage1!)
                                 .font(.title)
                                 .foregroundStyle(Color.red.opacity(0.3))
                         )

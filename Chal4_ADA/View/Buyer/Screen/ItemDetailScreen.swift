@@ -28,7 +28,7 @@ struct ItemDetailScreen: View {
                     VStack(alignment: .leading, spacing: 16) {
                         
                         // 2. Molecule: Gallery
-                        ImageGalleryCarousel(image: item.uiImage, grade: String(describing: item.qualityGrade))
+                        ImageGalleryCarousel(item: item, grade: String(describing: item.qualityGrade))
                         
                         // 3. Atom: Fulfillment Status
                         FulfillmentStatusView(statusText: item.expiresAt)

@@ -94,9 +94,9 @@ struct SellerGood: Identifiable, Hashable {
     func hash(into hasher: inout Hasher) { hasher.combine(id) }
 
     static let dijual: [SellerGood] = [
-        .init(image: .watermelon, grade: "Grade B", title: "Semangka Swedia", stock: 8, price: "Rp. 8.000", pickupLimit: "Batas ambil maks. 20.00", pickupBefore: "Jemput sebelum 20.00", description: "Buah semangka ada bopeng dikit di beberapa bagian, ukuran besar, 1 buah bisa 3-4 kg, enak buat isi buah atau makanan penutup, tinggal dipetik langsung. Bopeng-nya bopeng karena sedang mateng banget.\n\nBoleh nego kalau beli banyak."),
-        .init(image: .banana, grade: "Grade B", title: "Pisang Ripe", stock: 4, price: "Rp. 5.000", pickupLimit: "Batas ambil maks. 20.00", pickupBefore: "Jemput sebelum 20.00", description: "Pisang sudah matang sempurna, manis dan legit. Cocok untuk digoreng, dibuat kolak, atau dimakan langsung. Stok terbatas.\n\nBoleh nego kalau beli banyak."),
-        .init(image: .potato, grade: "Grade B", title: "Mangga Kalteng", stock: 12, price: "Rp. 12.000", pickupLimit: "Batas ambil maks. 20.00", pickupBefore: "Jemput sebelum 20.00", description: "Mangga harum manis dari Kalimantan Tengah, daging tebal dan tidak berserat. Ada sedikit bopeng di kulit tapi rasa tetap juara.\n\nBoleh nego kalau beli banyak."),
+        .init(image: .semangka1, grade: "Grade B", title: "Semangka Swedia", stock: 8, price: "Rp. 8.000", pickupLimit: "Batas ambil maks. 20.00", pickupBefore: "Jemput sebelum 20.00", description: "Buah semangka ada bopeng dikit di beberapa bagian, ukuran besar, 1 buah bisa 3-4 kg, enak buat isi buah atau makanan penutup, tinggal dipetik langsung. Bopeng-nya bopeng karena sedang mateng banget.\n\nBoleh nego kalau beli banyak."),
+        .init(image: .banana1, grade: "Grade B", title: "Pisang Ripe", stock: 4, price: "Rp. 5.000", pickupLimit: "Batas ambil maks. 20.00", pickupBefore: "Jemput sebelum 20.00", description: "Pisang sudah matang sempurna, manis dan legit. Cocok untuk digoreng, dibuat kolak, atau dimakan langsung. Stok terbatas.\n\nBoleh nego kalau beli banyak."),
+        .init(image: .kentang1, grade: "Grade B", title: "Mangga Kalteng", stock: 12, price: "Rp. 12.000", pickupLimit: "Batas ambil maks. 20.00", pickupBefore: "Jemput sebelum 20.00", description: "Mangga harum manis dari Kalimantan Tengah, daging tebal dan tidak berserat. Ada sedikit bopeng di kulit tapi rasa tetap juara.\n\nBoleh nego kalau beli banyak."),
     ]
 
     static let dipesan: [SellerGood] = [
@@ -104,14 +104,6 @@ struct SellerGood: Identifiable, Hashable {
     ]
 
     static let selesai: [SellerGood] = [
-        .init(image: .potato, grade: "Grade B", title: "Kentang Dieng", stock: 0, price: "Rp. 10.000", pickupLimit: "Batas ambil maks. 20.00", pickupBefore: "Jemput sebelum 20.00", description: "Kentang segar dari dataran tinggi Dieng, cocok untuk digoreng maupun direbus. Transaksi sudah selesai.\n\nBoleh nego kalau beli banyak."),
+        .init(image: .kentang1, grade: "Grade B", title: "Kentang Dieng", stock: 0, price: "Rp. 10.000", pickupLimit: "Batas ambil maks. 20.00", pickupBefore: "Jemput sebelum 20.00", description: "Kentang segar dari dataran tinggi Dieng, cocok untuk digoreng maupun direbus. Transaksi sudah selesai.\n\nBoleh nego kalau beli banyak."),
     ]
-}
-
-#Preview {
-    ScrollView {
-        SellerGoodsList()
-            .padding(.horizontal, 16)
-    }
-    .background(Color(.systemGroupedBackground))
 }

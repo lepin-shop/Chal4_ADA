@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct PostItemScreen: View {
     @State private var isGalleryPresented: Bool = false
@@ -18,11 +19,11 @@ struct PostItemScreen: View {
     @State private var description: String = ""
     
     @State private var pickupDate: Date = .now
-
+    
     @State private var pickupLocation = "Pasar Modern BSD"
     @State private var isLocationSheetPresented: Bool = false
     @State private var isRecipientSheetPresented: Bool = false
-
+    
     @State private var unit: String = "Label"
     @Environment(\.dismiss) private var dismiss
     
@@ -40,8 +41,8 @@ struct PostItemScreen: View {
                     .scaledToFit()
                     .opacity(0.5)
                     .frame(width: 75, height: 65)
-                    .offset(x: 10, y: 8) 
-
+                    .offset(x: 10, y: 8)
+                
                 Button {
                     isCameraPresented = true
                 } label: {
@@ -53,7 +54,7 @@ struct PostItemScreen: View {
                 }
                 .glassEffect(.regular.tint(.blue))
             }
-
+            
             Spacer()
         }
         .padding(.vertical, 20)
@@ -68,7 +69,7 @@ struct PostItemScreen: View {
         .padding(.horizontal, 18)
         .padding(.vertical, 2)
     }
-
+    
     // Tips pengambilan foto
     private var tipsBanner: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -76,78 +77,107 @@ struct PostItemScreen: View {
                 .foregroundStyle(.accents)
                 .frame(width: 40, height: 40)
                 .background(Color.accents.opacity(0.15), in: Circle())
-
+            
             Text("Pengambilan foto dilakukan dari 4 sisi, pastikan pencahayaan bagus ya!")
                 .font(.subheadline)
                 .foregroundStyle(.primary)
-
+            
             Spacer()
         }
         .padding(14)
         .background(.white, in: RoundedRectangle(cornerRadius: 20))
         .padding(.horizontal, 18)
     }
+    
+    private func gradeBanner(qualityGrade: QualityGrade) -> some View {
+        HStack(alignment: .center, spacing: 16) {
+            HStack(spacing: 6) {
+                Image(systemName: "wand.and.sparkles")
+                    .font(.system(size: 15, weight: .semibold))
+                Text(qualityGrade.rawValue)
+                    .font(.headline.bold())
+            }
+            .foregroundStyle(.accents)
+            .padding(.horizontal, 18)
+            .padding(.vertical, 12)
+            .overlay(
+                Capsule()
+                    .stroke(Color.accents.opacity(0.6), lineWidth: 1.5)
+            )
+            if qualityGrade == .fresh {
+                Text("Sangat segar, dan masih baik untuk dikonsumsi langsung")
+                    .font(.subheadline)
+                    .foregroundStyle(.accents)
+            } else if (qualityGrade == .standard) {
+                Text("Cukup segar, dan masih baik untuk dikonsumsi langsung atau diolah lagi")
+                    .font(.subheadline)
+                    .foregroundStyle(.accents)
+            } else {
+                Text("Tidak layak namun dapat diolah lagi menjadi hal lain")
+                    .font(.subheadline)
+                    .foregroundStyle(.accents)
+            }
+            
+            Spacer(minLength: 0)
+        }
+        .padding(16)
+        .background(.white, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+        .overlay(
+            RoundedRectangle(cornerRadius: 24, style: .continuous)
+                .stroke(Color.accents.opacity(0.35), lineWidth: 1)
+        )
+        .padding(.horizontal, 18)
+    }
 
+    
     private var detailHeader: some View {
         HStack {
             Text("Detail Produk")
                 .font(.title2.bold())
-
+            
             Spacer()
         }
         .padding(.horizontal, 18)
     }
-
+    
     private var detailForm: some View {
-        Form {
-            Section {
+        VStack(spacing: 0) {
+            VStack(spacing: 16) {
                 TextField("Nama Produk", text: $productName)
                     .accessibilityLabel("Nama Produk")
-
+                
+                Divider()
+                
                 HStack {
                     TextField("Jumlah", text: $quantityText)
                         .keyboardType(.numberPad)
                         .accessibilityLabel("Jumlah")
-
-                    Menu {
-                        Button("kg") { unit = "kg" }
-                        Button("gram") { unit = "gram" }
-                        Button("ikat") { unit = "ikat" }
-                        Button("buah") { unit = "buah" }
-                    } label: {
-                        HStack(spacing: 4) {
-                            Text(unit)
-                            Image(systemName: "chevron.up.chevron.down")
-                        }
-                        .foregroundStyle(.primary)
-                    }
-                    .tint(Color(.tertiaryLabel))
-                    .accessibilityLabel("Satuan jumlah")
-                    .listRowSeparator(.visible) 
                 }
-
+                
+                Divider()
+                
                 TextField("Harga", text: $priceText)
                     .keyboardType(.numberPad)
                     .accessibilityLabel("Harga")
-
+                
+                Divider()
+                
                 TextField("Deskripsi (Opsional)", text: $description, axis: .vertical)
                     .lineLimit(1...4)
                     .accessibilityLabel("Deskripsi")
             }
-
-            Section {
-                // Native compact DatePicker: passing both .date and
-                // .hourAndMinute automatically renders as two separate
-                // pill controls, matching the screenshot with zero
-                // custom styling.
+            .padding(16)
+            .background(.white, in: RoundedRectangle(cornerRadius: 20))
+            .padding(.horizontal, 18)
+            
+            VStack(spacing: 16) {
                 DatePicker(
                     "Waktu Jemput",
                     selection: $pickupDate,
                     displayedComponents: [.date, .hourAndMinute]
                 )
                 .datePickerStyle(.compact)
-
-                // Ketuk untuk membuka sheet ubah lokasi jemput.
+                
                 Button {
                     isLocationSheetPresented = true
                 } label: {
@@ -160,25 +190,33 @@ struct PostItemScreen: View {
                     }
                     .contentShape(Rectangle())
                 }
-                .buttonStyle(.plain) 
+                .buttonStyle(.plain)
                 .accessibilityLabel("Ubah lokasi jemput")
             }
+            .padding(16)
+            .background(.white, in: RoundedRectangle(cornerRadius: 20))
+            .padding(.horizontal, 18)
+            .padding(.top, 12)
         }
-        .contentMargins(.top, 0, for: .scrollContent)
     }
-
+    
     var body: some View {
-        VStack (spacing: 16) {
-            photoPicker
-
-            tipsBanner
-
-            detailHeader
-
-            detailForm
-
-            Spacer()
+        ScrollView {
+            VStack (spacing: 16) {
+                photoPicker
+                
+                if TemporaryImagePosts.shared.taken {
+                    gradeBanner(qualityGrade: TemporaryImagePosts.shared.label)
+                } else {
+                    tipsBanner
+                }
+                
+                detailHeader
+                
+                detailForm
+            }
         }
+        .scrollDismissesKeyboard(.immediately)
         .sheet(isPresented: $isGalleryPresented) {
             ImagePickerSheet(image: self.$image)
         }
@@ -208,6 +246,8 @@ struct PostItemScreen: View {
             ToolbarItem(placement: .topBarLeading) {
                 Button {
                     dismiss()
+                    TemporaryImagePosts.shared.taken = false
+                    TemporaryImagePosts.shared.reset()
                 } label: {
                     Image(systemName: "chevron.left")
                         .fontWeight(.semibold)
@@ -218,8 +258,26 @@ struct PostItemScreen: View {
             // Poin 2: tombol lanjut hijau di kanan atas
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
-                    
+                    do {
+                        try AppContainer.shared.itemService.createItem(
+                            seller: SessionManager.shared.currentUser!,
+                            title: self.productName,
+                            description: self.description,
+                            qualityGrade: TemporaryImagePosts.shared.label,
+                            quantity: 10,
+                            pricePerUnit: 15_000,
+                            expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7),
+                            imageData1: imageToData(from: Image(.banana)),
+                            imageData2: imageToData(from: Image(.banana1)),
+                            imageData3: imageToData(from: Image(.banana2)),
+                            imageData4: imageToData(from: Image(.banana)),
+                        )
+                    } catch {
+                        print(error)
+                    }
                     isRecipientSheetPresented = true
+                    TemporaryImagePosts.shared.taken = false
+                    TemporaryImagePosts.shared.reset()
                 } label: {
                     Image(systemName: "arrow.up")
                         .fontWeight(.semibold)
@@ -233,4 +291,12 @@ struct PostItemScreen: View {
         }
         .background(Color.background)
     }
+}
+
+
+#Preview {
+    NavigationStack {
+        PostItemScreen()
+    }.environment(SessionManager.shared)
+        .modelContainer(AppContainer.shared.modelContainer)
 }

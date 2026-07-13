@@ -127,7 +127,7 @@ struct ProductGridCard: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            ProductGridThumbnail(image: item.uiImage, grade: item.qualityGrade.rawValue)
+            ProductGridThumbnail(image: item.uiImage1, grade: item.qualityGrade.rawValue)
             
             VStack(alignment: .leading, spacing: 4) {
                 SellerCompactRow(sellerName: item.seller.name)
@@ -214,7 +214,7 @@ struct OrderSummaryCard: View {
             
             // Product Info Tier
             HStack(alignment: .top, spacing: 12) {
-                ProductGridThumbnail(image: item.uiImage, grade: String(describing: item.qualityGrade))
+                ProductGridThumbnail(image: item.uiImage1, grade: String(describing: item.qualityGrade))
                     .frame(width: 80, height: 80)
                 
                 VStack(alignment: .leading, spacing: 6) {

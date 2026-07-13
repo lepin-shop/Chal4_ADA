@@ -30,8 +30,8 @@ struct ItemCard: View {
                         .fill(Color(.systemGroupedBackground))
                         .frame(width: 120, height: 120)
                     
-                    if item.imageData != nil {
-                        Image(uiImage: item.uiImage!)
+                    if item.imageData1 != nil {
+                        Image(uiImage: item.uiImage1!)
                             .font(.system(size: 40))
                             .foregroundStyle(Color.accentColor)
                     } else {

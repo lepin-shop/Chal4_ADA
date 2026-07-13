@@ -43,7 +43,7 @@ struct OrderPageSection: View {
                         // TODO: Replace this so it should using app router
                         NavigationLink(value: Route.activeOrderDetailScreen(order: order)) {
                             CartListCard(
-                                image: order.item.uiImage,
+                                image: order.item.uiImage1,
                                 grade: String(describing: order.item.qualityGrade),
                                 title: order.item.title,
                                 stock: order.quantityOrdered,
@@ -60,7 +60,7 @@ struct OrderPageSection: View {
                 } else {
                     ForEach(completedOrders, id: \.id) { order in
                         CartListCard(
-                            image: order.item.uiImage,
+                            image: order.item.uiImage1,
                             grade: String(describing: order.item.qualityGrade),
                             title: order.item.title,
                             stock: order.quantityOrdered,

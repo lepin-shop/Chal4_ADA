@@ -32,6 +32,7 @@
 
 import Foundation
 import SwiftData
+import SwiftUI
 
 final class AppContainer {
     static let shared = AppContainer()
@@ -94,12 +95,16 @@ final class AppContainer {
             
             try itemService.createItem(
                 seller: seller,
-                title: "Apel Fuji",
+                title: "Pisang Ripe",
                 description: "Segar dari kebun",
                 qualityGrade: .fresh,
                 quantity: 10,
                 pricePerUnit: 15_000,
-                expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7)
+                expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7),
+                imageData1: imageToData(from: Image(.banana)),
+                imageData2: imageToData(from: Image(.banana1)),
+                imageData3: imageToData(from: Image(.banana2)),
+                imageData4: imageToData(from: Image(.banana)),
             )
             
             try itemService.createItem(
@@ -109,27 +114,40 @@ final class AppContainer {
                 qualityGrade: .fresh,
                 quantity: 10,
                 pricePerUnit: 15_000,
-                expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7)
+                expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7),
+                imageData1: imageToData(from: Image(.apelFuji1)),
+                imageData2: imageToData(from: Image(.apelFuji2)),
+                imageData3: imageToData(from: Image(.apelFuji3)),
+                imageData4: imageToData(from: Image(.apelFuji4)),
             )
 
             try itemService.createItem(
                 seller: seller,
-                title: "Apel Fuji",
+                title: "Kentang Sisa",
                 description: "Segar dari kebun",
                 qualityGrade: .fresh,
                 quantity: 10,
                 pricePerUnit: 15_000,
-                expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7)
+                expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7),
+                imageData1: imageToData(from: Image(.kentang1)),
+                imageData2: imageToData(from: Image(.kentang2)),
+                imageData3: imageToData(from: Image(.kentang3)),
+                imageData4: imageToData(from: Image(.kentang4)),
             )
 
             try itemService.createItem(
                 seller: seller,
-                title: "Apel Fuji",
-                description: "Segar dari kebun",
-                qualityGrade: .fresh,
+                title: "Semangka",
+                description: "Standar",
+                qualityGrade: .standard,
                 quantity: 10,
                 pricePerUnit: 15_000,
-                expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7)
+                expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7),
+                imageData1: imageToData(from: Image(.semangka1)),
+                imageData2: imageToData(from: Image(.semangka2)),
+                imageData3: imageToData(from: Image(.semangka3)),
+                imageData4: imageToData(from: Image(.semangka4)),
+
             )
 
         } catch {

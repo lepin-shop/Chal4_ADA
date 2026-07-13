@@ -34,18 +34,25 @@ struct BuyerScreen: View {
         NavigationStack (path: $router.path){
             VStack(spacing: 0) {
                 heroHeader.padding(.bottom, 16)
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 10) {
-                        ForEach(browsableItems) { item in
-                            Button(action: {
-                                router.push(Route.itemDetail(item: item))
-                            }) {
-                                ProductGridCard(item: item)
+                if browsableItems.isEmpty {
+                    Spacer()
+                    NoItemView()
+                    Spacer()
+                } else {
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 10) {
+                            ForEach(browsableItems) { item in
+                                Button(action: {
+                                    router.push(Route.itemDetail(item: item))
+                                }) {
+                                    ProductGridCard(item: item)
+                                }
+                                .buttonStyle(.plain)
                             }
-                            .buttonStyle(.plain)
                         }
+                        .padding(.horizontal, 16)
                     }
-                    .padding(.horizontal, 16)
+
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

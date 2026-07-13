@@ -23,19 +23,61 @@ final class Item {
     var status: ItemStatus
     var createdAt: Date
     
-    @Attribute(.externalStorage) var imageData: Data?
+    @Attribute(.externalStorage) var imageData1: Data?
+    @Attribute(.externalStorage) var imageData2: Data?
+    @Attribute(.externalStorage) var imageData3: Data?
+    @Attribute(.externalStorage) var imageData4: Data?
     
-    var uiImage: UIImage? {
+    var uiImage1: UIImage? {
         get {
-            guard let imageData else {
+            guard let imageData1 else {
                 return nil
             }
             
-            return UIImage(data: imageData)
+            return UIImage(data: imageData1)
         }
         
         set {
-            imageData = newValue?.jpegData(compressionQuality: 0.8)
+            imageData1 = newValue?.jpegData(compressionQuality: 0.8)
+        }
+    }
+    var uiImage2: UIImage? {
+        get {
+            guard let imageData2 else {
+                return nil
+            }
+            
+            return UIImage(data: imageData2)
+        }
+        
+        set {
+            imageData2 = newValue?.jpegData(compressionQuality: 0.8)
+        }
+    }
+    var uiImage3: UIImage? {
+        get {
+            guard let imageData3 else {
+                return nil
+            }
+            
+            return UIImage(data: imageData3)
+        }
+        
+        set {
+            imageData3 = newValue?.jpegData(compressionQuality: 0.8)
+        }
+    }
+    var uiImage4: UIImage? {
+        get {
+            guard let imageData4 else {
+                return nil
+            }
+            
+            return UIImage(data: imageData4)
+        }
+        
+        set {
+            imageData4 = newValue?.jpegData(compressionQuality: 0.8)
         }
     }
     

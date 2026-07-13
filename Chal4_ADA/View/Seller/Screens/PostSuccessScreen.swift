@@ -111,9 +111,3 @@ struct PostSuccessScreen: View {
         router.replace(with: .sellerGoods)
     }
 }
-
-#Preview {
-    NavigationStack {
-        PostSuccessScreen()
-    }
-}

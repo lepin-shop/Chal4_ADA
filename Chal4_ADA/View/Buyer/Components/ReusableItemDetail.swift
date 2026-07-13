@@ -9,18 +9,48 @@ import Foundation
 import SwiftUI
 
 struct ImageGalleryCarousel: View {
-    let image: UIImage?
+    let item: Item
     let grade: String
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             TabView {
-                if image != nil {
-                    Image(uiImage: image!)
+                if item.uiImage1 != nil {
+                    Image(uiImage: item.uiImage1!)
                         .resizable()
                         .scaledToFill()
                 } else {
-                    Image(systemName: "photo")
+                    Image(.banana)
+                        .resizable()
+                        .scaledToFill()
+                }
+                
+                if item.uiImage2 != nil {
+                    Image(uiImage: item.uiImage2!)
+                        .resizable()
+                        .scaledToFill()
+                } else {
+                    Image(.banana1)
+                        .resizable()
+                        .scaledToFill()
+                }
+                
+                if item.uiImage3 != nil {
+                    Image(uiImage: item.uiImage3!)
+                        .resizable()
+                        .scaledToFill()
+                } else {
+                    Image(.banana2)
+                        .resizable()
+                        .scaledToFill()
+                }
+                
+                if item.uiImage4 != nil {
+                    Image(uiImage: item.uiImage4!)
+                        .resizable()
+                        .scaledToFill()
+                } else {
+                    Image(.banana2)
                         .resizable()
                         .scaledToFill()
                 }
@@ -32,6 +62,7 @@ struct ImageGalleryCarousel: View {
             GradePill(grade: grade) // Reusing your existing Atom
                 .padding(16)
                 .padding(.bottom, 24)
+                .allowsHitTesting(false)
         }
     }
 }

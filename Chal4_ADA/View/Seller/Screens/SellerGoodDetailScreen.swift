@@ -92,7 +92,7 @@ struct SellerGoodDetailScreen: View {
             Image(good.image)
                 .resizable()
                 .scaledToFit()
-                .frame(maxWidth: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: 240)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
 
             HStack(spacing: 3) {

@@ -22,7 +22,11 @@ final class ItemService {
         qualityGrade: QualityGrade,
         quantity: Int,
         pricePerUnit: Double,
-        expiresAt: Date
+        expiresAt: Date,
+        imageData1: Data?,
+        imageData2: Data?,
+        imageData3: Data?,
+        imageData4: Data?
     ) throws -> Item {
         guard quantity > 0 else { throw ItemError.invalidQuantity }
         guard pricePerUnit > 0 else { throw ItemError.invalidPrice }
@@ -36,8 +40,14 @@ final class ItemService {
             quantityAvailable: quantity,
             pricePerUnit: pricePerUnit,
             expiresAt: expiresAt,
-            status: .onSale
+            status: .onSale,
         )
+        
+        item.imageData1 = imageData1
+        item.imageData2 = imageData2
+        item.imageData3 = imageData3
+        item.imageData4 = imageData4
+        
         repository.insert(item)
         try repository.save()
         return item

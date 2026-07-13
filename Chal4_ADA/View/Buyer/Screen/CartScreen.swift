@@ -22,5 +22,4 @@ struct CartScreen: View {
         .navigationTitle("Riwayat Pembelian")
         .navigationBarTitleDisplayMode(.inline)
     }
-    
 }

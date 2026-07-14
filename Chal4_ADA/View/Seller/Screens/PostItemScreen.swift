@@ -172,7 +172,7 @@ struct PostItemScreen: View {
             
             VStack(spacing: 16) {
                 DatePicker(
-                    "Waktu Jemput",
+                    "Jemput Sebelum",
                     selection: $pickupDate,
                     displayedComponents: [.date, .hourAndMinute]
                 )

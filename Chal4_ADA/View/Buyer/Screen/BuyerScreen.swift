@@ -14,6 +14,8 @@ struct BuyerScreen: View {
     @State private var searchText: String = ""
     @ObservedObject private var router = AppRouter.shared
     
+    @FocusState private var isFocused: Bool
+    
     // Ye ye ye ini tidak sebagus predicate but this is 1 am fuck it we balls
     @Query var items: [Item]
     
@@ -88,7 +90,13 @@ struct BuyerScreen: View {
             
             HStack(spacing: 12) {
                 Image(systemName: "magnifyingglass").foregroundStyle(.gray).font(.system(size: 18, weight: .semibold))
-                TextField("Cari buah grade B", text: $searchText).font(.subheadline)
+                TextField("Cari buah grade B", text: $searchText).font(.subheadline).focused($isFocused)
+                Spacer()
+                Button {
+                    isFocused = false
+                } label: {
+                    Image(systemName: "x.circle").foregroundStyle(.gray).font(.system(size: 18, weight: .semibold))
+                }
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 14)

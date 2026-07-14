@@ -106,7 +106,7 @@ final class AppContainer {
                 imageData3: imageToData(from: Image(.banana2)),
                 imageData4: imageToData(from: Image(.banana)),
             )
-            
+                        
             try itemService.createItem(
                 seller: seller,
                 title: "Apel Fuji",

@@ -36,12 +36,43 @@ struct PostItemScreen: View {
         HStack{
             Spacer()
             VStack (spacing: 16) {
-                Image(systemName: "person.crop.square.badge.camera.fill")
-                    .resizable()
-                    .scaledToFit()
-                    .opacity(0.5)
-                    .frame(width: 75, height: 65)
-                    .offset(x: 10, y: 8)
+                if TemporaryImagePosts.shared.taken {
+                    HStack (spacing: 5) {
+                        Image(uiImage: TemporaryImagePosts.shared.image1!)
+                            .resizable()
+                            .scaledToFit()
+                            .opacity(0.5)
+                            .frame(width: 75, height: 65)
+                            .offset(y: 8)
+                        Image(uiImage: TemporaryImagePosts.shared.image2!)
+                            .resizable()
+                            .scaledToFit()
+                            .opacity(0.5)
+                            .frame(width: 75, height: 65)
+                            .offset(y: 8)
+                        Image(uiImage: TemporaryImagePosts.shared.image3!)
+                            .resizable()
+                            .scaledToFit()
+                            .opacity(0.5)
+                            .frame(width: 75, height: 65)
+                            .offset(y: 8)
+                        Image(uiImage: TemporaryImagePosts.shared.image4!)
+                            .resizable()
+                            .scaledToFit()
+                            .opacity(0.5)
+                            .frame(width: 75, height: 65)
+                            .offset(y: 8)
+
+                    }
+                } else {
+                    Image(systemName: "person.crop.square.badge.camera.fill")
+                        .resizable()
+                        .scaledToFit()
+                        .opacity(0.5)
+                        .frame(width: 75, height: 65)
+                        .offset(x: 10, y: 8)
+                    
+                }
                 
                 Button {
                     isCameraPresented = true
@@ -128,7 +159,7 @@ struct PostItemScreen: View {
         )
         .padding(.horizontal, 18)
     }
-
+    
     
     private var detailHeader: some View {
         HStack {
@@ -221,12 +252,7 @@ struct PostItemScreen: View {
             ImagePickerSheet(image: self.$image)
         }
         .fullScreenCover(isPresented: $isCameraPresented) {
-            CameraCaptureScreen(onComplete: { images in
-                // Pakai foto pertama sebagai preview produk untuk sementara.
-                if let first = images.first {
-                    image = Image(uiImage: first)
-                }
-            })
+            CameraCaptureScreen()
         }
         .sheet(isPresented: $isLocationSheetPresented) {
             PickupLocationSheet(location: $pickupLocation)
@@ -258,6 +284,11 @@ struct PostItemScreen: View {
             // Poin 2: tombol lanjut hijau di kanan atas
             ToolbarItem(placement: .topBarTrailing) {
                 Button {
+                    let image1 = imageToData(from: Image(uiImage: TemporaryImagePosts.shared.image1!))
+                    let image2 = imageToData(from: Image(uiImage: TemporaryImagePosts.shared.image2!))
+                    let image3 = imageToData(from: Image(uiImage: TemporaryImagePosts.shared.image3!))
+                    let image4 = imageToData(from: Image(uiImage: TemporaryImagePosts.shared.image4!))
+
                     do {
                         try AppContainer.shared.itemService.createItem(
                             seller: SessionManager.shared.currentUser!,
@@ -267,10 +298,10 @@ struct PostItemScreen: View {
                             quantity: 10,
                             pricePerUnit: 15_000,
                             expiresAt: .now.addingTimeInterval(60 * 60 * 24 * 7),
-                            imageData1: imageToData(from: Image(.banana)),
-                            imageData2: imageToData(from: Image(.banana1)),
-                            imageData3: imageToData(from: Image(.banana2)),
-                            imageData4: imageToData(from: Image(.banana)),
+                            imageData1: image1,
+                            imageData2: image2,
+                            imageData3: image3,
+                            imageData4: image4,
                         )
                     } catch {
                         print(error)
@@ -297,6 +328,7 @@ struct PostItemScreen: View {
 #Preview {
     NavigationStack {
         PostItemScreen()
-    }.environment(SessionManager.shared)
-        .modelContainer(AppContainer.shared.modelContainer)
+    }
+    .environment(SessionManager.shared)
+    .modelContainer(AppContainer.shared.modelContainer)
 }

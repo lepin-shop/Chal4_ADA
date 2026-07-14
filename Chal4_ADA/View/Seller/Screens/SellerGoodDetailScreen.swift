@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SellerGoodDetailScreen: View {
-    let good: SellerGood
+    let item: Item
 
     @ObservedObject private var router = AppRouter.shared
 
@@ -21,7 +21,7 @@ struct SellerGoodDetailScreen: View {
 
                 HStack(spacing: 4) {
                     Image(systemName: "box.truck.fill")
-                    Text(good.pickupBefore)
+                    Text("Jemput sebelum 20.00")
                 }
                 .font(.subheadline.weight(.medium))
                 .foregroundStyle(Color("PickupGold"))
@@ -30,11 +30,11 @@ struct SellerGoodDetailScreen: View {
 
                 HStack(alignment: .top) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(good.title)
+                        Text(item.title)
                             .font(.title2.bold())
                             .foregroundStyle(.primary)
 
-                        Text("Stok: \(good.stock)")
+                        Text("Stok: \(item.quantityAvailable)")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
                     }
@@ -46,7 +46,7 @@ struct SellerGoodDetailScreen: View {
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
 
-                        Text(good.price)
+                        Text("Rp. \(String(format: "%.0f", item.pricePerUnit))")
                             .font(.title2.bold())
                             .foregroundStyle(.destructive)
                     }
@@ -59,7 +59,7 @@ struct SellerGoodDetailScreen: View {
                         .font(.headline)
                         .foregroundStyle(.primary)
 
-                    Text(good.description)
+                    Text(item.itemDescription)
                         .font(.body)
                         .foregroundStyle(.primary)
                 }
@@ -89,15 +89,24 @@ struct SellerGoodDetailScreen: View {
 
     private var productImage: some View {
         ZStack(alignment: .bottomLeading) {
-            Image(good.image)
-                .resizable()
-                .scaledToFit()
-                .frame(maxWidth: .infinity, maxHeight: 240)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
+            if item.uiImage1 != nil {
+                Image(uiImage: item.uiImage1!)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: 240)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
 
+            } else {
+                Image(.banana)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(maxWidth: .infinity, maxHeight: 240)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+            }
+            
             HStack(spacing: 3) {
                 Image(systemName: "wand.and.stars")
-                Text(good.grade)
+                Text(item.qualityGrade.rawValue)
             }
             .font(.caption.weight(.semibold))
             .foregroundStyle(.accents)
@@ -131,11 +140,5 @@ struct SellerGoodDetailScreen: View {
                 .padding(.vertical, 16)
                 .background(Color.destructive.opacity(0.12), in: RoundedRectangle(cornerRadius: 24))
         }
-    }
-}
-
-#Preview {
-    NavigationStack {
-        SellerGoodDetailScreen(good: SellerGood.dijual[0])
     }
 }

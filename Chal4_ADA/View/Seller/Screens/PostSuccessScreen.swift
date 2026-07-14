@@ -108,6 +108,6 @@ struct PostSuccessScreen: View {
     // MARK: - Navigation
 
     private func goToGoods() {
-        router.replace(with: .sellerGoods)
+        router.popToRoot()
     }
 }

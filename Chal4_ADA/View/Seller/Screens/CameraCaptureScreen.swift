@@ -154,18 +154,8 @@ struct FocusFrameShape: Shape {
     }
 }
 
-func imagesStored (images: [UIImage]) {
-    print("halo")
-    TemporaryImagePosts.shared.image1 = images[0]
-    TemporaryImagePosts.shared.image2 = images[1]
-    TemporaryImagePosts.shared.image3 = images[2]
-    TemporaryImagePosts.shared.image4 = images[3]
-}
-
 // MARK: - Screen
 struct CameraCaptureScreen: View {
-    var onComplete: ([UIImage]) -> Void = imagesStored
-
     @Environment(\.dismiss) private var dismiss
     @State private var camera = CameraModel()
     @State private var captured: [UIImage] = []
@@ -190,8 +180,11 @@ struct CameraCaptureScreen: View {
                     labels: shortLabels,
                     onContinue: {
                         Task {
-                            onComplete(captured)
-                            TemporaryImagePosts.shared.label = try await ImageClassifier.shared.classify(ImageRenderer(content: Image(.banana)).uiImage!)
+                            TemporaryImagePosts.shared.image1 = captured[0]
+                            TemporaryImagePosts.shared.image2 = captured[1]
+                            TemporaryImagePosts.shared.image3 = captured[2]
+                            TemporaryImagePosts.shared.image4 = captured[3]
+                            TemporaryImagePosts.shared.label = try await ImageClassifier.shared.classify(captured[0])
                             TemporaryImagePosts.shared.taken = true
                             dismiss()
                         }

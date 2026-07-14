@@ -8,25 +8,30 @@
 import SwiftUI
 
 struct SellerItemCard: View {
-    let image: ImageResource
-    let grade: String
-    let title: String
-    let stock: Int
-    let price: String
-    let pickupLimit: String
-
+    var item: Item
+    
     var body: some View {
         HStack(spacing: 14) {
             ZStack(alignment: .bottom) {
-                Image(image)
-                    .resizable()
-                    .scaledToFill()
-                    .frame(width: 96, height: 96)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
+                if item.uiImage1 != nil {
+                    Image(uiImage: item.uiImage1!)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 96, height: 96)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
 
+                } else {
+                    Image(.banana)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 96, height: 96)
+                        .clipShape(RoundedRectangle(cornerRadius: 16))
+
+                }
+                
                 HStack(spacing: 3) {
                     Image(systemName: "wand.and.stars")
-                    Text(grade)
+                    Text(item.qualityGrade.rawValue)
                 }
                 .font(.caption2.weight(.semibold))
                 .foregroundStyle(.accents)
@@ -37,21 +42,21 @@ struct SellerItemCard: View {
             }
 
             VStack(alignment: .leading, spacing: 4) {
-                Text(title)
+                Text(item.title)
                     .font(.title3.bold())
                     .foregroundStyle(.primary)
 
-                Text("Stok: \(stock)")
+                Text("Stok: \(item.quantityAvailable)")
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
 
-                Text(price)
+                Text("Rp. \(String(format: "%.0f", item.pricePerUnit))")
                     .font(.title3.bold())
                     .foregroundStyle(.destructive)
 
                 HStack(spacing: 4) {
                     Image(systemName: "box.truck.fill")
-                    Text(pickupLimit)
+                    Text("Batas ambil maks. 20.00")
                 }
                 .font(.caption.weight(.medium))
                 .foregroundStyle(Color("PickupGold"))
@@ -63,17 +68,4 @@ struct SellerItemCard: View {
         .padding(12)
         .background(.white, in: RoundedRectangle(cornerRadius: 24))
     }
-}
-
-#Preview {
-    SellerItemCard(
-        image: .banana,
-        grade: "Grade B",
-        title: "Pisang Ripe",
-        stock: 4,
-        price: "Rp. 5.000",
-        pickupLimit: "Batas ambil maks. 20.00"
-    )
-    .padding()
-    .background(Color(.systemGroupedBackground))
 }

@@ -11,8 +11,7 @@ import SwiftUI
 enum Route: Hashable {
     case post
     case postSuccess
-    case sellerGoods
-    case sellerGoodDetail(good: SellerGood)
+    case sellerGoodDetail(item: Item)
     case switchAccount
     case home
     case itemDetail(item: Item)
@@ -32,16 +31,8 @@ struct RouteDestinationView: View {
         case .postSuccess:
             PostSuccessScreen()
                 .toolbar(.hidden, for: .navigationBar)
-        case .sellerGoods:
-            EmptyGoodsScreen(
-                onSell: {
-                    AppRouter.shared.push(.post)
-                },
-            )
-            .navigationBarBackButtonHidden(true)
-            .toolbar(.hidden, for: .navigationBar)
-        case .sellerGoodDetail(good: let good):
-            SellerGoodDetailScreen(good: good)
+        case .sellerGoodDetail(item: let item):
+            SellerGoodDetailScreen(item: item)
                 .toolbar(.hidden, for: .tabBar)
         case .home:
             MainTabView()
